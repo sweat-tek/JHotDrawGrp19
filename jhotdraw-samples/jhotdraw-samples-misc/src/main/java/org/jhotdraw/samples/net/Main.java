@@ -7,6 +7,7 @@
  */
 package org.jhotdraw.samples.net;
 
+import dk.sdu.mmmi.featuretracer.lib.FeatureEntryPoint;
 import org.jhotdraw.api.app.Application;
 import org.jhotdraw.app.DefaultApplicationModel;
 import org.jhotdraw.app.OSXApplication;
@@ -26,6 +27,7 @@ public class Main {
     /**
      * Creates a new instance.
      */
+
     public static void main(String[] args) {
         Application app;
         String os = System.getProperty("os.name").toLowerCase();
