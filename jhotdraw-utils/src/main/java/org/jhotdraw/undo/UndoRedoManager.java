@@ -12,6 +12,8 @@ import java.beans.*;
 import java.util.*;
 import javax.swing.*;
 import javax.swing.undo.*;
+
+
 import org.jhotdraw.util.*;
 
 /**
@@ -22,6 +24,7 @@ import org.jhotdraw.util.*;
  * @version $Id$
  */
 public class UndoRedoManager extends UndoManager { //javax.swing.undo.UndoManager {
+
 
     private static final long serialVersionUID = 1L;
     protected PropertyChangeSupport propertySupport = new PropertyChangeSupport(this);

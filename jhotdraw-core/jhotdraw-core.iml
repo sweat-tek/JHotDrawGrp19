@@ -13,6 +13,7 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="jhotdraw-api" />
     <orderEntry type="module" module-name="jhotdraw-utils" />
+    <orderEntry type="library" name="Maven: dk.sdu.mmmi:featuretracerlite:1.0" level="project" />
     <orderEntry type="module" module-name="jhotdraw-xml" />
     <orderEntry type="module" module-name="jhotdraw-datatransfer" />
     <orderEntry type="library" scope="TEST" name="Maven: org.testng:testng:6.8.21" level="project" />
