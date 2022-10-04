@@ -14,7 +14,7 @@ import javax.swing.*;
 import javax.swing.undo.*;
 
 
-import dk.sdu.mmmi.featuretracer.lib.FeatureEntryPoint;
+
 import org.jhotdraw.util.*;
 
 /**
@@ -224,7 +224,7 @@ public class UndoRedoManager extends UndoManager { //javax.swing.undo.UndoManage
      * Updates the properties of the UndoAction
      * and of the RedoAction.
      */
-    @FeatureEntryPoint(value = "updateActions")
+
     private void updateActions() {
         String label;
         if (DEBUG) {
@@ -258,7 +258,7 @@ public class UndoRedoManager extends UndoManager { //javax.swing.undo.UndoManage
      * while undo is in progress.
      */
     @Override
-    @FeatureEntryPoint(value = "Undo")
+
     public void undo()
             throws CannotUndoException {
         undoOrRedoInProgress = true;
@@ -276,7 +276,7 @@ public class UndoRedoManager extends UndoManager { //javax.swing.undo.UndoManage
      * while redo is in progress.
      */
     @Override
-    @FeatureEntryPoint(value = "Redo")
+
     public void redo()
             throws CannotUndoException {
         undoOrRedoInProgress = true;
@@ -294,7 +294,7 @@ public class UndoRedoManager extends UndoManager { //javax.swing.undo.UndoManage
      * while undo or redo is in progress.
      */
     @Override
-    @FeatureEntryPoint(value = "UndoRedo")
+
     public void undoOrRedo()
             throws CannotUndoException, CannotRedoException {
         undoOrRedoInProgress = true;
