@@ -45,5 +45,7 @@
     <orderEntry type="library" name="Maven: org.eclipse.jetty.websocket:websocket-api:9.4.26.v20200117" level="project" />
     <orderEntry type="module" module-name="jhotdraw-app" />
     <orderEntry type="module" module-name="jhotdraw-gui" />
+    <orderEntry type="library" name="Maven: dk.sdu.mmmi:featuretracerlite:1.0" level="project" />
+    <orderEntry type="library" name="Maven: org.aspectj:aspectjweaver:1.9.9" level="project" />
   </component>
 </module>
