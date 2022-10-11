@@ -56,7 +56,7 @@ public class ExitAction extends AbstractApplicationAction {
     /**
      * Creates a new instance.
      */
-    @FeatureEntryPoint(value = "Exit")
+    @FeatureEntryPoint(value = "Exit") //TESTING IF GITHUB ACTIONS WORK
     public ExitAction(Application app) {
         super(app);
         ResourceBundleUtil labels = ResourceBundleUtil.getBundle("org.jhotdraw.app.Labels");
