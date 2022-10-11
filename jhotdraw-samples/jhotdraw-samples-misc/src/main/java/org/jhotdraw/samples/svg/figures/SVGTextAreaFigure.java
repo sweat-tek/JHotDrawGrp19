@@ -7,6 +7,7 @@
  */
 package org.jhotdraw.samples.svg.figures;
 
+import dk.sdu.mmmi.featuretracer.lib.FeatureEntryPoint;
 import org.jhotdraw.draw.figure.TextHolderFigure;
 import java.awt.*;
 import java.awt.font.*;
@@ -66,6 +67,7 @@ public class SVGTextAreaFigure extends SVGAttributedFigure
         this("Text");
     }
 
+    @FeatureEntryPoint(value = "textArea")
     public SVGTextAreaFigure(String text) {
         setText(text);
         SVGAttributeKeys.setDefaults(this);
@@ -83,6 +85,7 @@ public class SVGTextAreaFigure extends SVGAttributedFigure
     }
 
     @Override
+    @FeatureEntryPoint(value = "textArea")
     protected void drawStroke(Graphics2D g) {
         g.draw(getTextShape());
     }
@@ -192,6 +195,7 @@ public class SVGTextAreaFigure extends SVGAttributedFigure
      * values
      * @return Returns the actual bounds of the paragraph.
      */
+    @FeatureEntryPoint(value = "textArea")
     private Rectangle2D.Double appendParagraph(Path2D.Double shape,
             AttributedCharacterIterator styledText,
             float verticalPos, float maxVerticalPos,
