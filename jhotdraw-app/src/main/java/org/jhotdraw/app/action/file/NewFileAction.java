@@ -9,7 +9,7 @@ package org.jhotdraw.app.action.file;
 
 import java.awt.event.*;
 
-import dk.sdu.mmmi.featuretracer.lib.FeatureEntryPoint;
+
 import org.jhotdraw.api.app.Application;
 import org.jhotdraw.api.app.View;
 import org.jhotdraw.action.AbstractApplicationAction;
@@ -45,7 +45,7 @@ public class NewFileAction extends AbstractApplicationAction {
         this(app, ID);
     }
 
-    @FeatureEntryPoint(value = "NewFile")
+
     public NewFileAction(Application app, String id) {
         super(app);
         ResourceBundleUtil labels = ResourceBundleUtil.getBundle("org.jhotdraw.app.Labels");

@@ -7,7 +7,7 @@
  */
 package org.jhotdraw.app.action.file;
 
-import dk.sdu.mmmi.featuretracer.lib.FeatureEntryPoint;
+
 import org.jhotdraw.api.app.Application;
 import org.jhotdraw.api.app.View;
 import org.jhotdraw.app.action.AbstractSaveUnsavedChangesAction;

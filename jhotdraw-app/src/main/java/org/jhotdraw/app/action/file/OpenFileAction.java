@@ -30,7 +30,7 @@ import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
 import javax.swing.UIManager;
 
-import dk.sdu.mmmi.featuretracer.lib.FeatureEntryPoint;
+
 import org.jhotdraw.action.AbstractApplicationAction;
 import org.jhotdraw.api.app.Application;
 import org.jhotdraw.api.app.View;
@@ -97,7 +97,7 @@ public class OpenFileAction extends AbstractApplicationAction {
     }
 
     @Override
-    @FeatureEntryPoint(value = "SecondOpenFile")
+
     public void actionPerformed(ActionEvent evt) {
         final Application app = getApplication();
         if (app.isEnabled()) {
