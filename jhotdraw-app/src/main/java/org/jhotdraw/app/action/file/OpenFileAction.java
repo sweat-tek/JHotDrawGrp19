@@ -84,7 +84,7 @@ public class OpenFileAction extends AbstractApplicationAction {
     /**
      * Creates a new instance.
      */
-    @FeatureEntryPoint(value = "OpenFile")
+
     public OpenFileAction(Application app) {
         super(app);
         ResourceBundleUtil labels = ResourceBundleUtil.getBundle("org.jhotdraw.app.Labels");

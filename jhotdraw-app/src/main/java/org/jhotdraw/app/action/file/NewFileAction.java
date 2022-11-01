@@ -53,7 +53,7 @@ public class NewFileAction extends AbstractApplicationAction {
     }
 
     @Override
-    @FeatureEntryPoint(value = "NewFile")
+
     public void actionPerformed(ActionEvent evt) {
         Application app = getApplication();
         final View newView = app.createView();
