@@ -11,12 +11,13 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="jhotdraw-core" />
     <orderEntry type="module" module-name="jhotdraw-utils" />
-    <orderEntry type="library" name="Maven: dk.sdu.mmmi:featuretracerlite:1.0" level="project" />
     <orderEntry type="module" module-name="jhotdraw-xml" />
     <orderEntry type="module" module-name="jhotdraw-datatransfer" />
     <orderEntry type="module" module-name="jhotdraw-actions" />
     <orderEntry type="module" module-name="jhotdraw-samples-misc" />
     <orderEntry type="library" name="Maven: org.devzendo:Quaqua:7.3.4" level="project" />
+    <orderEntry type="library" name="Maven: dk.sdu.mmmi:featuretracerlite:1.0" level="project" />
+    <orderEntry type="library" name="Maven: org.aspectj:aspectjweaver:1.9.9" level="project" />
     <orderEntry type="library" name="Maven: net.sourceforge.htmlunit:htmlunit:2.37.0" level="project" />
     <orderEntry type="library" name="Maven: xalan:xalan:2.7.2" level="project" />
     <orderEntry type="library" name="Maven: xalan:serializer:2.7.2" level="project" />
@@ -43,8 +44,6 @@
     <orderEntry type="library" name="Maven: org.eclipse.jetty:jetty-io:9.4.26.v20200117" level="project" />
     <orderEntry type="library" name="Maven: org.eclipse.jetty.websocket:websocket-common:9.4.26.v20200117" level="project" />
     <orderEntry type="library" name="Maven: org.eclipse.jetty.websocket:websocket-api:9.4.26.v20200117" level="project" />
-    <orderEntry type="library" name="Maven: dk.sdu.mmmi:featuretracer:1.0" level="project" />
-    <orderEntry type="library" name="Maven: org.aspectj:aspectjweaver:1.9.9" level="project" />
     <orderEntry type="module" module-name="jhotdraw-app" />
     <orderEntry type="module" module-name="jhotdraw-gui" />
     <orderEntry type="module" module-name="jhotdraw-api" />
