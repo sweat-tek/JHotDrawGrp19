@@ -7,7 +7,7 @@
  */
 package org.jhotdraw.app.action.file;
 
-import dk.sdu.mmmi.featuretracer.lib.FeatureEntryPoint;
+
 import org.jhotdraw.api.app.Application;
 import org.jhotdraw.api.app.View;
 import org.jhotdraw.app.action.AbstractSaveUnsavedChangesAction;
@@ -42,13 +42,13 @@ public class CloseFileAction extends AbstractSaveUnsavedChangesAction {
     /**
      * Creates a new instance.
      */
-    @FeatureEntryPoint(value = "Close")
+
     public CloseFileAction(Application app, View view) {
         super(app, view);
         ResourceBundleUtil labels = ResourceBundleUtil.getBundle("org.jhotdraw.app.Labels");
         labels.configureAction(this, ID);
     }
-    @FeatureEntryPoint(value = "Close")
+
     @Override
     protected void doIt(View view) {
         if (view != null && view.getApplication() != null) {
