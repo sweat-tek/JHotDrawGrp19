@@ -37,12 +37,7 @@ import org.jhotdraw.samples.svg.Gradient;
 import org.jhotdraw.samples.svg.SVGAttributeKeys;
 import static org.jhotdraw.samples.svg.SVGAttributeKeys.*;
 
-/**
- * SVGTextArea.
- *
- * @author Werner Randelshofer
- * @version $Id$
- */
+
 public class SVGTextAreaFigure extends SVGAttributedFigure
         implements SVGFigure, TextHolderFigure {
 
@@ -50,19 +45,16 @@ public class SVGTextAreaFigure extends SVGAttributedFigure
     private Rectangle2D.Double bounds = new Rectangle2D.Double();
     private boolean editable = true;
     private static final BasicStroke DASHES = new BasicStroke(1f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 0f, new float[]{4f, 4f}, 0f);
-    /**
-     * This is a cached value to improve the performance of method isTextOverflow();
-     */
+
+    // This is a cached value to improve the performance of method isTextOverflow();
     private Boolean isTextOverflow;
-    /**
-     * This is used to perform faster drawing and hit testing.
-     */
+
+    // This is used to perform faster drawing and hit testing.
     private transient Rectangle2D.Double cachedDrawingArea;
     private transient Shape cachedTextShape;
 
-    /**
-     * Creates a new instance.
-     */
+
+    // Creates a new instance
     public SVGTextAreaFigure() {
         this("Text");
     }
@@ -112,9 +104,8 @@ public class SVGTextAreaFigure extends SVGAttributedFigure
         return (Rectangle2D.Double) cachedDrawingArea.clone();
     }
 
-    /**
-     * Checks if a Point2D.Double is inside the figure.
-     */
+
+    // Checks if a Point2D.Double is inside the figure
     @Override
     public boolean contains(Point2D.Double p) {
         if (get(TRANSFORM) != null) {
@@ -302,11 +293,8 @@ public class SVGTextAreaFigure extends SVGAttributedFigure
         invalidate();
     }
 
-    /**
-     * Transforms the figure.
-     *
-     * @param tx the transformation.
-     */
+
+    //Transforms the figure.
     @Override
     public void transform(AffineTransform tx) {
         if (get(TRANSFORM) != null
@@ -387,17 +375,13 @@ public class SVGTextAreaFigure extends SVGAttributedFigure
         super.set(key, newValue);
     }
 
-    /**
-     * Sets the text shown by the text figure.
-     */
+    // Sets the text shown by the text figure
     @Override
     public void setText(String newText) {
         set(TEXT, newText);
     }
 
-    /**
-     * Returns the insets used to draw text.
-     */
+    // Returns the insets used to draw text
     @Override
     public Insets2D.Double getInsets() {
         double sw = (get(STROKE_COLOR) == null) ? 0 : Math.ceil(get(STROKE_WIDTH) / 2);
@@ -471,8 +455,8 @@ public class SVGTextAreaFigure extends SVGAttributedFigure
         }
         return (float) Math.abs(p.y);
     }
-// EDITING
 
+    // EDITING
     @Override
     public boolean isEditable() {
         return editable;
@@ -504,11 +488,8 @@ public class SVGTextAreaFigure extends SVGAttributedFigure
         return handles;
     }
 
-    /**
-     * Returns a specialized tool for the given coordinate.
-     * <p>
-     * Returns null, if no specialized tool is available.
-     */
+
+    // Returns a specialized tool for the given coordinate - Returns null, if no specialized tool is available
     @Override
     public Tool getTool(Point2D.Double p) {
         if (isEditable() && contains(p)) {
@@ -517,14 +498,14 @@ public class SVGTextAreaFigure extends SVGAttributedFigure
         }
         return null;
     }
-// CONNECTING
-// COMPOSITE FIGURES
-// CLONING
-// EVENT HANDLING
 
-    /**
-     * Gets the text shown by the text figure.
-     */
+    // CONNECTING
+    // COMPOSITE FIGURES
+    // CLONING
+    // EVENT HANDLING
+
+
+    // Gets the text shown by the text figure
     @Override
     public boolean isEmpty() {
         return getText() == null || getText().length() == 0;
