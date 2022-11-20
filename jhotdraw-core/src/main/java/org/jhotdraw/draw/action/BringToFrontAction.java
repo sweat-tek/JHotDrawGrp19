@@ -7,6 +7,7 @@
  */
 package org.jhotdraw.draw.action;
 
+import dk.sdu.mmmi.featuretracer.lib.FeatureEntryPoint;
 import org.jhotdraw.draw.figure.Figure;
 import java.util.*;
 import javax.swing.undo.*;
@@ -19,6 +20,8 @@ import org.jhotdraw.util.ResourceBundleUtil;
  * @author Werner Randelshofer
  * @version $Id$
  */
+
+
 public class BringToFrontAction extends AbstractSelectedAction {
 
     private static final long serialVersionUID = 1L;
@@ -35,6 +38,7 @@ public class BringToFrontAction extends AbstractSelectedAction {
         updateEnabledState();
     }
 
+    @FeatureEntryPoint(value="Arrangefront")
     @Override
     public void actionPerformed(java.awt.event.ActionEvent e) {
         final DrawingView view = getView();
