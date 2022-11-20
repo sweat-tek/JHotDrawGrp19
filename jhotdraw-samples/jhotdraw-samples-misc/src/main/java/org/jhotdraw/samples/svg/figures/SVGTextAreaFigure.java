@@ -38,8 +38,7 @@ import org.jhotdraw.samples.svg.SVGAttributeKeys;
 import static org.jhotdraw.samples.svg.SVGAttributeKeys.*;
 
 
-public class SVGTextAreaFigure extends SVGAttributedFigure
-        implements SVGFigure, TextHolderFigure {
+public class SVGTextAreaFigure extends SVGAttributedFigure implements SVGFigure, TextHolderFigure {
 
     private static final long serialVersionUID = 1L;
     private Rectangle2D.Double bounds = new Rectangle2D.Double();
@@ -225,30 +224,23 @@ public class SVGTextAreaFigure extends SVGAttributedFigure
             while (!lineComplete) {
                 float wrappingWidth = rightMargin - horizontalPos;
                 TextLayout layout = null;
-                layout
-                        = measurer.nextLayout(wrappingWidth,
-                                tabLocations[currentTab] + 1,
-                                lineContainsText);
+                layout = measurer.nextLayout(wrappingWidth, tabLocations[currentTab] + 1, lineContainsText);
                 // layout can be null if lineContainsText is true
                 if (layout != null) {
                     layouts.add(layout);
                     penPositions.add(horizontalPos);
                     horizontalPos += layout.getAdvance();
                     maxAscent = Math.max(maxAscent, layout.getAscent());
-                    maxDescent = Math.max(maxDescent,
-                            layout.getDescent() + layout.getLeading());
-                } else {
-                    lineComplete = true;
+                    maxDescent = Math.max(maxDescent, layout.getDescent() + layout.getLeading());
                 }
-                lineContainsText = true;
+
                 if (measurer.getPosition() == tabLocations[currentTab] + 1) {
                     currentTab++;
                 }
-                if (measurer.getPosition() == styledText.getEndIndex()) {
-                    lineComplete = true;
-                } else if (tabStops.length == 0 || horizontalPos >= tabStops[tabStops.length - 1]) {
-                    lineComplete = true;
-                }
+
+                lineComplete = completeLine(layout, measurer, styledText, horizontalPos, tabStops);
+                lineContainsText = true;
+
                 if (!lineComplete) {
                     // move to next tab stop
                     int j;
@@ -261,27 +253,46 @@ public class SVGTextAreaFigure extends SVGAttributedFigure
             if (verticalPos > maxVerticalPos) {
                 break;
             }
-            Iterator<TextLayout> layoutEnum = layouts.iterator();
-            Iterator<Float> positionEnum = penPositions.iterator();
-            // now iterate through layouts and draw them
-            while (layoutEnum.hasNext()) {
-                TextLayout nextLayout = layoutEnum.next();
-                float nextPosition = positionEnum.next();
-                AffineTransform tx = new AffineTransform();
-                tx.translate(nextPosition, verticalPos);
-                if (shape != null) {
-                    Shape outline = nextLayout.getOutline(tx);
-                    shape.append(outline, false);
-                }
-                Rectangle2D layoutBounds = nextLayout.getBounds();
-                paragraphBounds.add(new Rectangle2D.Double(layoutBounds.getX() + nextPosition,
-                        layoutBounds.getY() + verticalPos,
-                        layoutBounds.getWidth(),
-                        layoutBounds.getHeight()));
-            }
+            drawTextLayout(verticalPos, layouts, penPositions, shape, paragraphBounds);
             verticalPos += maxDescent;
         }
         return paragraphBounds;
+    }
+
+    // completeLine() created after refactoring
+    public boolean completeLine(TextLayout layout, LineBreakMeasurer measurer, AttributedCharacterIterator styledText, float horizontalPos, float[] tabStops) {
+        boolean completion = false;
+        if (measurer.getPosition() == styledText.getEndIndex()) {
+            completion = true;
+        if (layout == null) {
+            completion = true;
+        }
+        } else if (tabStops.length == 0 || horizontalPos >= tabStops[tabStops.length - 1]) {
+            completion = true;
+        }
+        return completion;
+    }
+
+    // drawTextLayout() created after refactoring  
+    public void drawTextLayout(float verticalPos, LinkedList<TextLayout> layouts, LinkedList<Float> penPositions, Path2D.Double shape, Rectangle2D.Double paragraphBounds) {
+        Iterator<TextLayout> layoutEnum = layouts.iterator();
+        Iterator<Float> positionEnum = penPositions.iterator();
+        // now iterate through layouts and draw them
+        while (layoutEnum.hasNext()) {
+            TextLayout nextLayout = layoutEnum.next();
+            float nextPosition = positionEnum.next();
+            AffineTransform tx = new AffineTransform();
+            tx.translate(nextPosition, verticalPos);
+            if (shape != null) {
+                Shape outline = nextLayout.getOutline(tx);
+                shape.append(outline, false);
+            }
+            Rectangle2D layoutBounds = nextLayout.getBounds();
+            paragraphBounds.add(new Rectangle2D.Double(layoutBounds.getX() + nextPosition,
+                    layoutBounds.getY() + verticalPos,
+                    layoutBounds.getWidth(),
+                    layoutBounds.getHeight()));
+        }
     }
 
     @Override
