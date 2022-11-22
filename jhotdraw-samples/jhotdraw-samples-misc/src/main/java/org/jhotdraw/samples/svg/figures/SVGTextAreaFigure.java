@@ -52,6 +52,10 @@ public class SVGTextAreaFigure extends SVGAttributedFigure implements SVGFigure,
     private transient Rectangle2D.Double cachedDrawingArea;
     private transient Shape cachedTextShape;
 
+    // Moved from getPreferredTextSize()
+    float leftMargin = 0;
+    float verticalPos = 0;
+
 
     // Creates a new instance
     public SVGTextAreaFigure() {
@@ -122,6 +126,7 @@ public class SVGTextAreaFigure extends SVGAttributedFigure implements SVGFigure,
         if (cachedTextShape == null) {
             Path2D.Double shape;
             cachedTextShape = shape = new Path2D.Double();
+
             if (getText() != null || isEditable()) {
                 Font font = getFont();
                 boolean isUnderlined = get(FONT_UNDERLINE);
@@ -135,6 +140,7 @@ public class SVGTextAreaFigure extends SVGAttributedFigure implements SVGFigure,
                 float rightMargin = (float) Math.max(leftMargin + 1, textRect.x + textRect.width);
                 float verticalPos = (float) textRect.y;
                 float maxVerticalPos = (float) (textRect.y + textRect.height);
+                
                 if (leftMargin < rightMargin) {
                     float tabWidth = (float) (getTabSize() * font.getStringBounds("m", getFontRenderContext()).getWidth());
                     float[] tabStops = new float[(int) (textRect.width / tabWidth)];
@@ -549,14 +555,16 @@ public class SVGTextAreaFigure extends SVGAttributedFigure implements SVGFigure,
      * if you want the width to be unlimited.
      * @return width and height needed to lay out the text.
      */
+
+
     public Dimension2DDouble getPreferredTextSize(double maxWidth) {
         Rectangle2D.Double textRect = new Rectangle2D.Double();
         if (getText() != null) {
             Font font = getFont();
             boolean isUnderlined = get(FONT_UNDERLINE);
-            float leftMargin = 0;
+            //float leftMargin = 0;
             float rightMargin = (float) maxWidth - 1;
-            float verticalPos = 0;
+            //float verticalPos = 0;
             float maxVerticalPos = Float.MAX_VALUE;
             if (leftMargin < rightMargin) {
                 float tabWidth = (float) (getTabSize() * font.getStringBounds("m", getFontRenderContext()).getWidth());
