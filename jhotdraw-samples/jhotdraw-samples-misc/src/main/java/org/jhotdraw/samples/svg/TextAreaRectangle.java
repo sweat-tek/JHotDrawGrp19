@@ -2,7 +2,7 @@ package org.jhotdraw.samples.svg;
 
 public class TextAreaRectangle {
 
-    //Variables 
+    //Variables
     private float rightMargin = 0;
     private float leftMargin = 0;
     private float verticalPos = 0;
