@@ -53,10 +53,7 @@ public class SVGTextAreaFigure extends SVGAttributedFigure implements SVGFigure,
     // This is used to perform faster drawing and hit testing.
     private transient Rectangle2D.Double cachedDrawingArea;
     private transient Shape cachedTextShape;
-
-    // Moved from getPreferredTextSize()
-    float leftMargin = 0;
-    float verticalPos = 0;
+    
 
 
     // Creates a new instance
