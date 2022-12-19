@@ -148,10 +148,8 @@ public class SVGTextAreaFigure extends SVGAttributedFigure implements SVGFigure,
                 if (textAreaRectangle.getLeftMargin() < textAreaRectangle.getRightMargin()) {
 
                     float tabWidth = (float) (getTabSize() * font.getStringBounds("m", getFontRenderContext()).getWidth());
-                    float[] tabStops = new float[(int) (textRect.width / tabWidth)];
-                    for (int i = 0; i < tabStops.length; i++) {
-                        tabStops[i] = (float) (textRect.x + (int) (tabWidth * (i + 1)));
-                    }
+                    //new
+                    float[] tabStops = creatingTabStops(tabWidth, textRect);
                     if (getText() != null) {
                         String[] paragraphs = getText().split("\n"); //Strings.split(getText(), '\n');
                         for (int i = 0; i < paragraphs.length; i++) {
@@ -574,10 +572,8 @@ public class SVGTextAreaFigure extends SVGAttributedFigure implements SVGFigure,
             if (textAreaRectangle.getLeftMargin() < textAreaRectangle.getRightMargin()) {
 
                 float tabWidth = (float) (getTabSize() * font.getStringBounds("m", getFontRenderContext()).getWidth());
-                float[] tabStops = new float[(int) (textRect.width / tabWidth)];
-                for (int i = 0; i < tabStops.length; i++) {
-                    tabStops[i] = (float) (textRect.x + (int) (tabWidth * (i + 1)));
-                }
+                //new
+                float[] tabStops = creatingTabStops(tabWidth, textRect);
                 if (getText() != null) {
                     String[] paragraphs = getText().split("\n"); //Strings.split(getText(), '\n');
                     for (int i = 0; i < paragraphs.length; i++) {
@@ -598,6 +594,15 @@ public class SVGTextAreaFigure extends SVGAttributedFigure implements SVGFigure,
             }
         }
         return new Dimension2DDouble(Math.abs(textRect.x) + textRect.width, Math.abs(textRect.y) + textRect.height);
+    }
+
+    //New method - creatingTabStops
+    public float[] creatingTabStops(float tabWidth, Rectangle2D.Double textRect) {
+        float[] tabStops = new float[(int) (textRect.width / tabWidth)];
+        for (int i = 0; i < tabStops.length; i++) {
+            tabStops[i] = (float) (textRect.x + (int) (tabWidth * (i + 1)));
+        }
+        return tabStops;
     }
 
     @Override
