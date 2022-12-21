@@ -9,6 +9,8 @@ package org.jhotdraw.draw.figure;
 
 import java.awt.*;
 import java.awt.geom.*;
+
+import dk.sdu.mmmi.featuretracer.lib.FeatureEntryPoint;
 import org.jhotdraw.draw.AttributeKeys;
 import org.jhotdraw.geom.Geom;
 

@@ -67,6 +67,7 @@ public class SVGTextAreaFigure extends SVGAttributedFigure
         this("Text");
     }
 
+    @FeatureEntryPoint(value = "textAreaTool")
     public SVGTextAreaFigure(String text) {
         setText(text);
         SVGAttributeKeys.setDefaults(this);
@@ -84,6 +85,7 @@ public class SVGTextAreaFigure extends SVGAttributedFigure
     }
 
     @Override
+    @FeatureEntryPoint(value = "textAreaTool")
     protected void drawStroke(Graphics2D g) {
         g.draw(getTextShape());
     }
@@ -305,6 +307,7 @@ public class SVGTextAreaFigure extends SVGAttributedFigure
      * @param tx the transformation.
      */
     @Override
+    @FeatureEntryPoint(value = "textAreaTool")
     public void transform(AffineTransform tx) {
         if (get(TRANSFORM) != null
                 || (tx.getType()

@@ -7,6 +7,7 @@
  */
 package org.jhotdraw.samples.net.figures;
 
+import dk.sdu.mmmi.featuretracer.lib.FeatureEntryPoint;
 import org.jhotdraw.draw.figure.RectangleFigure;
 import org.jhotdraw.draw.figure.ConnectionFigure;
 import org.jhotdraw.draw.figure.TextFigure;

@@ -68,6 +68,7 @@ public class SVGTextFigure
         this("Text");
     }
 
+    @FeatureEntryPoint(value = "textTool")
     public SVGTextFigure(String text) {
         setText(text);
         SVGAttributeKeys.setDefaults(this);
@@ -86,6 +87,7 @@ public class SVGTextFigure
     }
 
     @Override
+    @FeatureEntryPoint(value = "textTool")
     protected void drawStroke(Graphics2D g) {
         g.draw(getTextShape());
     }
@@ -231,6 +233,7 @@ public class SVGTextFigure
      * @param tx the transformation.
      */
     @Override
+    @FeatureEntryPoint(value = "textTool")
     public void transform(AffineTransform tx) {
         if (get(TRANSFORM) != null
                 || tx.getType() != (tx.getType() & AffineTransform.TYPE_TRANSLATION)) {

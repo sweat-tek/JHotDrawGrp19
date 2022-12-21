@@ -7,6 +7,7 @@
  */
 package org.jhotdraw.samples.odg.figures;
 
+import dk.sdu.mmmi.featuretracer.lib.FeatureEntryPoint;
 import org.jhotdraw.draw.figure.ConnectionFigure;
 import java.awt.*;
 import java.awt.geom.*;

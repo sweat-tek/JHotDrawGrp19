@@ -82,6 +82,7 @@ public class SVGRectFigure extends SVGAttributedFigure implements SVGFigure {
         this(x, y, width, height, 0, 0);
     }
 
+    @FeatureEntryPoint(value = "rectangleTool")
     public SVGRectFigure(double x, double y, double width, double height, double rx, double ry) {
         roundrect = new RoundRectangle2D.Double(x, y, width, height, rx, ry);
         SVGAttributeKeys.setDefaults(this);
@@ -99,7 +100,7 @@ public class SVGRectFigure extends SVGAttributedFigure implements SVGFigure {
     }
 
     @Override
-    @FeatureEntryPoint(value = "rect1")
+    @FeatureEntryPoint(value = "rectangleTool")
     protected void drawStroke(Graphics2D g) {
         if (roundrect.archeight == 0 && roundrect.arcwidth == 0) {
             g.draw(roundrect.getBounds2D());
@@ -273,6 +274,7 @@ public class SVGRectFigure extends SVGAttributedFigure implements SVGFigure {
      * @param tx The transformation.
      */
     @Override
+    @FeatureEntryPoint(value = "rectangleTool")
     public void transform(AffineTransform tx) {
         invalidateTransformedShape();
         if (get(TRANSFORM) != null
