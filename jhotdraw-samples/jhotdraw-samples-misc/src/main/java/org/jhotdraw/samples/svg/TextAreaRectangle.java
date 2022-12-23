@@ -8,6 +8,9 @@ public class TextAreaRectangle {
     private float verticalPos = 0;
     private float maxVerticalPos = 0;
 
+    //Constructor
+    public TextAreaRectangle() {}
+
     //Getter and setter for RightMargin
     public float getRightMargin() {
         return rightMargin;
@@ -32,7 +35,7 @@ public class TextAreaRectangle {
         this.verticalPos = verticalPos;
     }
 
-    //Getter and setter for MacVerticalPos
+    //Getter and setter for MaxVerticalPos
     public float getMaxVerticalPos() {
         return maxVerticalPos;
     }
@@ -41,6 +44,6 @@ public class TextAreaRectangle {
     }
 
 
-    public TextAreaRectangle() {}
+
 
 }
