@@ -29,8 +29,8 @@ public class SVGTextAreaFigureTest {
 
     @Test
     public void setText() {
-        textArea.setText("Text area");
-        assertEquals("Text area", textArea.getText());
+        textArea.setText("Set text");
+        assertEquals("Set text", textArea.getText());
     }
 
     @Test
@@ -45,13 +45,13 @@ public class SVGTextAreaFigureTest {
     @Test
     public void setBounds() {
         Rectangle2D.Double beforeNewBounds = textArea.getBounds();
-        Point2D.Double anchor = new Point2D.Double(1.93, 4.56);
-        Point2D.Double lead = new Point2D.Double(6.54, 5.21);
-        textArea.setBounds(anchor, lead);
+        Point2D.Double aDouble = new Point2D.Double(1.93, 4.56);
+        Point2D.Double bDouble = new Point2D.Double(6.54, 5.21);
+        textArea.setBounds(aDouble, bDouble);
         assertNotNull(textArea.getBounds());
         assertNotEquals(beforeNewBounds, textArea.getBounds());
-        assertEquals(anchor.x, textArea.getBounds().x, 0.5);
-        assertEquals(anchor.y, textArea.getBounds().y, 0.5);
+        assertEquals(aDouble.x, textArea.getBounds().x, 0.1);
+        assertEquals(aDouble.y, textArea.getBounds().y, 0.1);
     }
 
     @Test
