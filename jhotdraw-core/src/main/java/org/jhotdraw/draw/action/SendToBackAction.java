@@ -1,75 +1,43 @@
-/*
- * @(#)SendToBackAction.java
- *
- * Copyright (c) 2003-2008 The authors and contributors of JHotDraw.
- * You may not use, copy or modify this file, except in compliance with the
- * accompanying license terms.
- */
+
 package org.jhotdraw.draw.action;
 
 import dk.sdu.mmmi.featuretracer.lib.FeatureEntryPoint;
-import org.jhotdraw.draw.figure.Figure;
-import java.util.*;
-import javax.swing.undo.*;
-import org.jhotdraw.draw.*;
-import org.jhotdraw.util.ResourceBundleUtil;
+import org.jhotdraw.draw.DrawingEditor;
+import org.jhotdraw.draw.DrawingView;
+import org.jhotdraw.draw.Figure;
 
-/**
- * SendToBackAction.
- *
- * @author Werner Randelshofer
- * @version $Id$
- */
-public class SendToBackAction extends AbstractSelectedAction {
+import java.util.Collection;
+
+
+
+public abstract class SendToBackAction extends AbstractArrangeAction {
 
     private static final long serialVersionUID = 1L;
     public static final String ID = "edit.sendToBack";
+    private BringToFrontAction bringToFrontAction;
 
-    /**
-     * Creates a new instance.
-     */
+    @Override
+    String getID() {
+        return ID;
+    }
+
     public SendToBackAction(DrawingEditor editor) {
         super(editor);
-        ResourceBundleUtil labels
-                = ResourceBundleUtil.getBundle("org.jhotdraw.draw.Labels");
-        labels.configureAction(this, ID);
-        updateEnabledState();
     }
 
-    @FeatureEntryPoint(value="ArrangeBack")
+    @FeatureEntryPoint(value = "ArrangeBack")
     @Override
-    public void actionPerformed(java.awt.event.ActionEvent e) {
-        final DrawingView view = getView();
-        final LinkedList<Figure> figures = new LinkedList<>(view.getSelectedFigures());
+    public void action(DrawingView view, Collection<Figure> figures) {
+        assert view != null;
+        assert figures != null;
         sendToBack(view, figures);
-        fireUndoableEditHappened(new AbstractUndoableEdit() {
-            private static final long serialVersionUID = 1L;
-
-            @Override
-            public String getPresentationName() {
-                ResourceBundleUtil labels
-                        = ResourceBundleUtil.getBundle("org.jhotdraw.draw.Labels");
-                return labels.getTextProperty(ID);
-            }
-
-            @Override
-            public void redo() throws CannotRedoException {
-                super.redo();
-                SendToBackAction.sendToBack(view, figures);
-            }
-
-            @Override
-            public void undo() throws CannotUndoException {
-                super.undo();
-                BringToFrontAction.bringToFront(view, figures);
-            }
-        });
     }
 
-    public static void sendToBack(DrawingView view, Collection<Figure> figures) {
-        Drawing drawing = view.getDrawing();
-        for (Figure figure : figures) { // XXX Shouldn't the figures be sorted here back to front?
-            drawing.sendToBack(figure);
+    private void sendToBack(DrawingView view, Collection<Figure> figures) {
+        assert view != null;
+        assert figures != null;
+        if (figures.isEmpty()) {
+            return;
         }
     }
 }

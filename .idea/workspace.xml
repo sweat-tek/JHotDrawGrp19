@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="a57c0f5b-f589-4c48-8e78-36c0c1cd5888" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_jhotdraw_jhotdraw_actions_9_1_SNAPSHOT.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_jhotdraw_jhotdraw_api_9_1_SNAPSHOT.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_jhotdraw_jhotdraw_app_9_1_SNAPSHOT.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_jhotdraw_jhotdraw_core_9_1_SNAPSHOT.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_jhotdraw_jhotdraw_datatransfer_9_1_SNAPSHOT.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_jhotdraw_jhotdraw_gui_9_1_SNAPSHOT.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_jhotdraw_jhotdraw_samples_misc_9_1_SNAPSHOT.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_jhotdraw_jhotdraw_utils_9_1_SNAPSHOT.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_jhotdraw_jhotdraw_xml_9_1_SNAPSHOT.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jhotdraw-core/src/main/java/org/jhotdraw/draw/action/AbstractArrangeAction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_beust_jcommander_1_27.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_beanshell_bsh_2_0b4.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_testng_testng_6_8_21.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jhotdraw-actions/jhotdraw-actions.iml" beforeDir="false" afterPath="$PROJECT_DIR$/jhotdraw-actions/jhotdraw-actions.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jhotdraw-api/jhotdraw-api.iml" beforeDir="false" afterPath="$PROJECT_DIR$/jhotdraw-api/jhotdraw-api.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jhotdraw-app/jhotdraw-app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/jhotdraw-app/jhotdraw-app.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jhotdraw-core/jhotdraw-core.iml" beforeDir="false" afterPath="$PROJECT_DIR$/jhotdraw-core/jhotdraw-core.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jhotdraw-core/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/jhotdraw-core/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jhotdraw-core/src/main/java/org/jhotdraw/draw/action/BringToFrontAction.java" beforeDir="false" afterPath="$PROJECT_DIR$/jhotdraw-core/src/main/java/org/jhotdraw/draw/action/BringToFrontAction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jhotdraw-core/src/main/java/org/jhotdraw/draw/action/SendToBackAction.java" beforeDir="false" afterPath="$PROJECT_DIR$/jhotdraw-core/src/main/java/org/jhotdraw/draw/action/SendToBackAction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jhotdraw-core/src/main/java/org/jhotdraw/draw/figure/QuadTreeCompositeFigure.java" beforeDir="false" afterPath="$PROJECT_DIR$/jhotdraw-core/src/main/java/org/jhotdraw/draw/figure/QuadTreeCompositeFigure.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jhotdraw-datatransfer/jhotdraw-datatransfer.iml" beforeDir="false" afterPath="$PROJECT_DIR$/jhotdraw-datatransfer/jhotdraw-datatransfer.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jhotdraw-gui/jhotdraw-gui.iml" beforeDir="false" afterPath="$PROJECT_DIR$/jhotdraw-gui/jhotdraw-gui.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jhotdraw-samples/jhotdraw-samples-mini/jhotdraw-samples-mini.iml" beforeDir="false" afterPath="$PROJECT_DIR$/jhotdraw-samples/jhotdraw-samples-mini/jhotdraw-samples-mini.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jhotdraw-samples/jhotdraw-samples-misc/jhotdraw-samples-misc.iml" beforeDir="false" afterPath="$PROJECT_DIR$/jhotdraw-samples/jhotdraw-samples-misc/jhotdraw-samples-misc.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jhotdraw-samples/jhotdraw-samples.iml" beforeDir="false" afterPath="$PROJECT_DIR$/jhotdraw-samples/jhotdraw-samples.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jhotdraw-utils/jhotdraw-utils.iml" beforeDir="false" afterPath="$PROJECT_DIR$/jhotdraw-utils/jhotdraw-utils.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jhotdraw-xml/jhotdraw-xml.iml" beforeDir="false" afterPath="$PROJECT_DIR$/jhotdraw-xml/jhotdraw-xml.iml" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="useMavenConfig" value="true" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectId" id="2JVqlOYTJdqffKlKQJGCe4YMPV5" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.project.maven.repository.indices&quot;
+  }
+}</component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="a57c0f5b-f589-4c48-8e78-36c0c1cd5888" name="Changes" comment="" />
+      <created>1672173755411</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1672173755411</updated>
+      <workItem from="1672173763015" duration="8122000" />
+      <workItem from="1672322437290" duration="3070000" />
+      <workItem from="1672331597108" duration="79000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>
