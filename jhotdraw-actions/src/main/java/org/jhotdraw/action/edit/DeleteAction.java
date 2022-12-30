@@ -114,10 +114,10 @@ public class DeleteAction extends TextAction {
     @FeatureEntryPoint(value = "delete")
     public void actionPerformed(ActionEvent evt) {
         JComponent c = target;
-        if (c == null && (KeyboardFocusManager.getCurrentKeyboardFocusManager().
-                getPermanentFocusOwner() instanceof JComponent)) {
-            c = (JComponent) KeyboardFocusManager.getCurrentKeyboardFocusManager().
-                    getPermanentFocusOwner();
+        boolean isFocusOwnerAJComponent = KeyboardFocusManager.getCurrentKeyboardFocusManager()
+                .getPermanentFocusOwner() instanceof JComponent;
+        if (c == null && isFocusOwnerAJComponent) {
+            c = (JComponent) KeyboardFocusManager.getCurrentKeyboardFocusManager().getPermanentFocusOwner();
         }
         if (c != null && c.isEnabled()) {
             if (c instanceof EditableComponent) {
