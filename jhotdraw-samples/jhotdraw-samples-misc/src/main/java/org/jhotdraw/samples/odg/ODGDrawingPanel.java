@@ -7,37 +7,26 @@
  */
 package org.jhotdraw.samples.odg;
 
-import java.awt.*;
-import java.util.*;
-import javax.swing.*;
-import org.jhotdraw.action.edit.CopyAction;
-import org.jhotdraw.action.edit.CutAction;
-import org.jhotdraw.action.edit.DuplicateAction;
-import org.jhotdraw.action.edit.PasteAction;
-import org.jhotdraw.action.edit.SelectAllAction;
-import org.jhotdraw.draw.AttributeKey;
-import org.jhotdraw.draw.AttributeKeys;
-import org.jhotdraw.draw.DefaultDrawing;
-import org.jhotdraw.draw.DefaultDrawingEditor;
-import org.jhotdraw.draw.Drawing;
-import org.jhotdraw.draw.DrawingEditor;
-import org.jhotdraw.draw.DrawingView;
+import org.jhotdraw.action.edit.*;
+import org.jhotdraw.draw.*;
 import org.jhotdraw.draw.action.*;
+import org.jhotdraw.draw.figure.Figure;
 import org.jhotdraw.draw.tool.CreationTool;
 import org.jhotdraw.draw.tool.TextAreaCreationTool;
 import org.jhotdraw.gui.JPopupButton;
 import org.jhotdraw.gui.action.ButtonFactory;
 import org.jhotdraw.samples.svg.action.CombineAction;
 import org.jhotdraw.samples.svg.action.SplitAction;
-import org.jhotdraw.samples.svg.figures.SVGBezierFigure;
-import org.jhotdraw.samples.svg.figures.SVGEllipseFigure;
-import org.jhotdraw.samples.svg.figures.SVGGroupFigure;
-import org.jhotdraw.samples.svg.figures.SVGPathFigure;
-import org.jhotdraw.samples.svg.figures.SVGRectFigure;
-import org.jhotdraw.samples.svg.figures.SVGTextAreaFigure;
-import org.jhotdraw.samples.svg.figures.SVGTextFigure;
+import org.jhotdraw.samples.svg.figures.*;
 import org.jhotdraw.undo.UndoRedoManager;
-import org.jhotdraw.util.*;
+import org.jhotdraw.util.ResourceBundleUtil;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.LinkedList;
 
 /**
  * ODGDrawingPanel.
@@ -72,8 +61,38 @@ public class ODGDrawingPanel extends JPanel {
         pb.add(new GroupAction(editor));
         pb.add(new UngroupAction(editor));
         pb.addSeparator();
-        pb.add(new BringToFrontAction(editor));
-        pb.add(new SendToBackAction(editor));
+        pb.add(new BringToFrontAction(editor) {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+
+            @Override
+            public void redoAction(DrawingView view, LinkedList<Figure> figures) {
+
+            }
+
+            @Override
+            public void undoAction(DrawingView view, LinkedList<Figure> figures) {
+
+            }
+        });
+        pb.add(new SendToBackAction(editor) {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+
+            @Override
+            public void redoAction(DrawingView view, LinkedList<Figure> figures) {
+
+            }
+
+            @Override
+            public void undoAction(DrawingView view, LinkedList<Figure> figures) {
+
+            }
+        });
         pb.addSeparator();
         pb.add(new CutAction());
         pb.add(new CopyAction());
@@ -147,8 +166,38 @@ public class ODGDrawingPanel extends JPanel {
         a.add(new CombineAction(editor));
         a.add(new SplitAction(editor));
         a.add(null); // separator
-        a.add(new BringToFrontAction(editor));
-        a.add(new SendToBackAction(editor));
+        a.add(new BringToFrontAction(editor) {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+
+            @Override
+            public void redoAction(DrawingView view, LinkedList<Figure> figures) {
+
+            }
+
+            @Override
+            public void undoAction(DrawingView view, LinkedList<Figure> figures) {
+
+            }
+        });
+        a.add(new SendToBackAction(editor) {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+
+            @Override
+            public void redoAction(DrawingView view, LinkedList<Figure> figures) {
+
+            }
+
+            @Override
+            public void undoAction(DrawingView view, LinkedList<Figure> figures) {
+
+            }
+        });
         return a;
     }
 

@@ -16,9 +16,18 @@ public abstract class AbstractArrangeAction extends AbstractDrawingViewAction {
         super(editor);
     }
     abstract String getID();
-    public abstract void action(DrawingView view, Collection<Figure> figures);
-    public abstract void redoAction(DrawingView view, LinkedList<Figure> figures);
-    public abstract void undoAction(DrawingView view, LinkedList<Figure> figures);
+
+    public void action(DrawingView view, Collection<Figure> figures) {
+
+    }
+
+    public void redoAction(DrawingView view, LinkedList<Figure> figures) {
+
+    }
+
+    public void undoAction(DrawingView view, LinkedList<Figure> figures) {
+
+    }
 
     protected void fireUndoableEdit(final DrawingView view, final LinkedList<Figure> figures) {
         fireUndoableEditHappened(new AbstractUndoableEdit() {

@@ -7,19 +7,14 @@
  */
 package org.jhotdraw.samples.svg.gui;
 
-import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.util.*;
-import javax.swing.*;
-import javax.swing.border.*;
 import org.jhotdraw.action.edit.DuplicateAction;
 import org.jhotdraw.draw.AttributeKey;
 import org.jhotdraw.draw.AttributeKeys;
-import static org.jhotdraw.draw.AttributeKeys.PATH_CLOSED;
 import org.jhotdraw.draw.DrawingEditor;
 import org.jhotdraw.draw.DrawingView;
-import org.jhotdraw.draw.action.*;
+import org.jhotdraw.draw.action.AbstractSelectedAction;
+import org.jhotdraw.draw.action.GroupAction;
+import org.jhotdraw.draw.action.UngroupAction;
 import org.jhotdraw.draw.tool.CreationTool;
 import org.jhotdraw.draw.tool.TextAreaCreationTool;
 import org.jhotdraw.draw.tool.TextCreationTool;
@@ -29,15 +24,19 @@ import org.jhotdraw.samples.svg.PathTool;
 import org.jhotdraw.samples.svg.SVGCreateFromFileTool;
 import org.jhotdraw.samples.svg.action.CombineAction;
 import org.jhotdraw.samples.svg.action.SplitAction;
-import org.jhotdraw.samples.svg.figures.SVGBezierFigure;
-import org.jhotdraw.samples.svg.figures.SVGEllipseFigure;
-import org.jhotdraw.samples.svg.figures.SVGGroupFigure;
-import org.jhotdraw.samples.svg.figures.SVGImageFigure;
-import org.jhotdraw.samples.svg.figures.SVGPathFigure;
-import org.jhotdraw.samples.svg.figures.SVGRectFigure;
-import org.jhotdraw.samples.svg.figures.SVGTextAreaFigure;
-import org.jhotdraw.samples.svg.figures.SVGTextFigure;
-import org.jhotdraw.util.*;
+import org.jhotdraw.samples.svg.figures.*;
+import org.jhotdraw.util.ResourceBundleUtil;
+
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.LinkedList;
+
+import static org.jhotdraw.draw.AttributeKeys.PATH_CLOSED;
 
 /**
  * DrawToolsPane.
@@ -186,10 +185,7 @@ public class ToolsToolBar extends AbstractToolBar {
         list.add(a = new SplitAction(editor));
         disposables.add(a);
         list.add(null); // separator
-        list.add(a = new BringToFrontAction(editor));
-        disposables.add(a);
-        list.add(a = new SendToBackAction(editor));
-        disposables.add(a);
+
         return list;
     }
 

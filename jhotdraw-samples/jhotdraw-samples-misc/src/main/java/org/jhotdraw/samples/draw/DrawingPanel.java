@@ -7,44 +7,25 @@
  */
 package org.jhotdraw.samples.draw;
 
-import java.util.*;
-import javax.swing.*;
-import org.jhotdraw.action.edit.CopyAction;
-import org.jhotdraw.action.edit.CutAction;
-import org.jhotdraw.action.edit.DuplicateAction;
-import org.jhotdraw.action.edit.PasteAction;
-import org.jhotdraw.action.edit.SelectAllAction;
-import org.jhotdraw.draw.figure.AbstractAttributedFigure;
-import static org.jhotdraw.draw.AttributeKeys.*;
-import org.jhotdraw.draw.figure.BezierFigure;
-import org.jhotdraw.draw.figure.ConnectionFigure;
-import org.jhotdraw.draw.DefaultDrawing;
-import org.jhotdraw.draw.DefaultDrawingEditor;
-import org.jhotdraw.draw.figure.DiamondFigure;
-import org.jhotdraw.draw.Drawing;
-import org.jhotdraw.draw.DrawingEditor;
-import org.jhotdraw.draw.DrawingView;
-import org.jhotdraw.draw.figure.EllipseFigure;
-import org.jhotdraw.draw.figure.LineConnectionFigure;
-import org.jhotdraw.draw.figure.LineFigure;
-import org.jhotdraw.draw.figure.RectangleFigure;
-import org.jhotdraw.draw.figure.RoundRectangleFigure;
-import org.jhotdraw.draw.figure.TextAreaFigure;
-import org.jhotdraw.draw.figure.TextFigure;
-import org.jhotdraw.draw.figure.TriangleFigure;
+import org.jhotdraw.action.edit.*;
+import org.jhotdraw.draw.*;
 import org.jhotdraw.draw.action.*;
 import org.jhotdraw.draw.decoration.ArrowTip;
+import org.jhotdraw.draw.figure.*;
 import org.jhotdraw.draw.liner.CurvedLiner;
 import org.jhotdraw.draw.liner.ElbowLiner;
-import org.jhotdraw.draw.tool.BezierTool;
-import org.jhotdraw.draw.tool.ConnectionTool;
-import org.jhotdraw.draw.tool.CreationTool;
-import org.jhotdraw.draw.tool.TextAreaCreationTool;
-import org.jhotdraw.draw.tool.TextCreationTool;
+import org.jhotdraw.draw.tool.*;
 import org.jhotdraw.gui.JPopupButton;
 import org.jhotdraw.gui.action.ButtonFactory;
 import org.jhotdraw.undo.UndoRedoManager;
-import org.jhotdraw.util.*;
+import org.jhotdraw.util.ResourceBundleUtil;
+
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.util.Collection;
+import java.util.LinkedList;
+
+import static org.jhotdraw.draw.AttributeKeys.END_DECORATION;
 
 /**
  * DrawingPanel.
@@ -79,8 +60,38 @@ public class DrawingPanel extends JPanel {
         pb.add(new GroupAction(editor));
         pb.add(new UngroupAction(editor));
         pb.addSeparator();
-        pb.add(new BringToFrontAction(editor));
-        pb.add(new SendToBackAction(editor));
+        pb.add(new BringToFrontAction(editor) {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+
+            @Override
+            public void redoAction(DrawingView view, LinkedList<Figure> figures) {
+
+            }
+
+            @Override
+            public void undoAction(DrawingView view, LinkedList<Figure> figures) {
+
+            }
+        });
+        pb.add(new SendToBackAction(editor) {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+
+            @Override
+            public void redoAction(DrawingView view, LinkedList<Figure> figures) {
+
+            }
+
+            @Override
+            public void undoAction(DrawingView view, LinkedList<Figure> figures) {
+
+            }
+        });
         pb.addSeparator();
         pb.add(new CutAction());
         pb.add(new CopyAction());

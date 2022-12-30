@@ -7,11 +7,6 @@
  */
 package org.jhotdraw.samples.svg;
 
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-import java.util.*;
-import javax.swing.*;
-import javax.swing.filechooser.FileFilter;
 import org.jhotdraw.action.edit.ClearSelectionAction;
 import org.jhotdraw.action.edit.RedoAction;
 import org.jhotdraw.action.edit.UndoAction;
@@ -23,11 +18,9 @@ import org.jhotdraw.api.gui.URIChooser;
 import org.jhotdraw.app.DefaultApplicationModel;
 import org.jhotdraw.app.DefaultMenuBuilder;
 import org.jhotdraw.app.action.file.ExportFileAction;
-import org.jhotdraw.draw.DefaultDrawingEditor;
-import org.jhotdraw.draw.Drawing;
-import org.jhotdraw.draw.DrawingEditor;
-import org.jhotdraw.draw.GridConstrainer;
+import org.jhotdraw.draw.*;
 import org.jhotdraw.draw.action.*;
+import org.jhotdraw.draw.figure.Figure;
 import org.jhotdraw.draw.io.InputFormat;
 import org.jhotdraw.draw.io.OutputFormat;
 import org.jhotdraw.gui.JFileURIChooser;
@@ -35,6 +28,15 @@ import org.jhotdraw.samples.svg.action.CombineAction;
 import org.jhotdraw.samples.svg.action.SplitAction;
 import org.jhotdraw.samples.svg.action.ViewSourceAction;
 import org.jhotdraw.samples.svg.figures.SVGGroupFigure;
+
+import javax.swing.*;
+import javax.swing.filechooser.FileFilter;
+import java.awt.event.ActionEvent;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Provides meta-data and factory methods for an application.
@@ -92,8 +94,38 @@ public class SVGApplicationModel extends DefaultApplicationModel {
         m.put(UngroupAction.ID, new UngroupAction(editor, new SVGGroupFigure()));
         m.put(CombineAction.ID, new CombineAction(editor));
         m.put(SplitAction.ID, new SplitAction(editor));
-        m.put(BringToFrontAction.ID, new BringToFrontAction(editor));
-        m.put(SendToBackAction.ID, new SendToBackAction(editor));
+        m.put(BringToFrontAction.ID, new BringToFrontAction(editor) {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+
+            @Override
+            public void redoAction(DrawingView view, LinkedList<Figure> figures) {
+
+            }
+
+            @Override
+            public void undoAction(DrawingView view, LinkedList<Figure> figures) {
+
+            }
+        });
+        m.put(SendToBackAction.ID, new SendToBackAction(editor) {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+
+            @Override
+            public void redoAction(DrawingView view, LinkedList<Figure> figures) {
+
+            }
+
+            @Override
+            public void undoAction(DrawingView view, LinkedList<Figure> figures) {
+
+            }
+        });
         //view.addDisposable(action);
     }
 
@@ -121,8 +153,38 @@ public class SVGApplicationModel extends DefaultApplicationModel {
         m.put(UngroupAction.ID, new UngroupAction(editor, new SVGGroupFigure()));
         m.put(CombineAction.ID, new CombineAction(editor));
         m.put(SplitAction.ID, new SplitAction(editor));
-        m.put(BringToFrontAction.ID, new BringToFrontAction(editor));
-        m.put(SendToBackAction.ID, new SendToBackAction(editor));
+        m.put(BringToFrontAction.ID, new BringToFrontAction(editor) {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+
+            @Override
+            public void redoAction(DrawingView view, LinkedList<Figure> figures) {
+
+            }
+
+            @Override
+            public void undoAction(DrawingView view, LinkedList<Figure> figures) {
+
+            }
+        });
+        m.put(SendToBackAction.ID, new SendToBackAction(editor) {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+
+            @Override
+            public void redoAction(DrawingView view, LinkedList<Figure> figures) {
+
+            }
+
+            @Override
+            public void undoAction(DrawingView view, LinkedList<Figure> figures) {
+
+            }
+        });
         return m;
     }
 

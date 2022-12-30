@@ -7,16 +7,7 @@
  */
 package org.jhotdraw.samples.odg;
 
-import java.awt.*;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-import java.util.*;
-import javax.swing.*;
-import org.jhotdraw.action.edit.CopyAction;
-import org.jhotdraw.action.edit.CutAction;
-import org.jhotdraw.action.edit.DuplicateAction;
-import org.jhotdraw.action.edit.PasteAction;
-import org.jhotdraw.action.edit.SelectAllAction;
+import org.jhotdraw.action.edit.*;
 import org.jhotdraw.action.view.ToggleViewPropertyAction;
 import org.jhotdraw.action.view.ViewPropertyAction;
 import org.jhotdraw.api.app.Application;
@@ -25,23 +16,31 @@ import org.jhotdraw.api.app.View;
 import org.jhotdraw.api.gui.URIChooser;
 import org.jhotdraw.app.DefaultApplicationModel;
 import org.jhotdraw.app.action.file.ExportFileAction;
-import org.jhotdraw.draw.AttributeKey;
-import org.jhotdraw.draw.AttributeKeys;
-import org.jhotdraw.draw.DefaultDrawingEditor;
-import org.jhotdraw.draw.DrawingEditor;
+import org.jhotdraw.draw.*;
 import org.jhotdraw.draw.action.*;
+import org.jhotdraw.draw.figure.Figure;
 import org.jhotdraw.draw.io.InputFormat;
 import org.jhotdraw.draw.io.OutputFormat;
 import org.jhotdraw.draw.tool.CreationTool;
 import org.jhotdraw.gui.JFileURIChooser;
 import org.jhotdraw.gui.action.ButtonFactory;
-import static org.jhotdraw.samples.odg.ODGAttributeKeys.*;
 import org.jhotdraw.samples.odg.figures.ODGGroupFigure;
 import org.jhotdraw.samples.odg.figures.ODGPathFigure;
 import org.jhotdraw.samples.odg.figures.ODGRectFigure;
 import org.jhotdraw.samples.svg.action.CombineAction;
 import org.jhotdraw.samples.svg.action.SplitAction;
-import org.jhotdraw.util.*;
+import org.jhotdraw.util.ResourceBundleUtil;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.LinkedList;
+
+import static org.jhotdraw.samples.odg.ODGAttributeKeys.*;
 
 /**
  * Provides meta-data and factory methods for an application.
@@ -93,8 +92,38 @@ public class ODGApplicationModel extends DefaultApplicationModel {
         a.add(new CombineAction(editor));
         a.add(new SplitAction(editor));
         a.add(null); // separator
-        a.add(new BringToFrontAction(editor));
-        a.add(new SendToBackAction(editor));
+        a.add(new BringToFrontAction(editor) {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+
+            @Override
+            public void redoAction(DrawingView view, LinkedList<Figure> figures) {
+
+            }
+
+            @Override
+            public void undoAction(DrawingView view, LinkedList<Figure> figures) {
+
+            }
+        });
+        a.add(new SendToBackAction(editor) {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+
+            @Override
+            public void redoAction(DrawingView view, LinkedList<Figure> figures) {
+
+            }
+
+            @Override
+            public void undoAction(DrawingView view, LinkedList<Figure> figures) {
+
+            }
+        });
         return a;
     }
 

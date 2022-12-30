@@ -32,7 +32,6 @@ public abstract class BringToFrontAction extends AbstractArrangeAction {
         assert view != null;
         assert figures != null;
         if (figures.isEmpty()) {
-            return;
         }
     }
 }

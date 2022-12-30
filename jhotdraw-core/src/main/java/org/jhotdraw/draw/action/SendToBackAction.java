@@ -36,7 +36,6 @@ public abstract class SendToBackAction extends AbstractArrangeAction {
         assert view != null;
         assert figures != null;
         if (figures.isEmpty()) {
-            return;
         }
     }
 }
