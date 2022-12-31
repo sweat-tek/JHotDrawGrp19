@@ -12,20 +12,14 @@ import org.jhotdraw.draw.figure.AbstractCompositeFigure;
 import java.awt.*;
 import java.awt.geom.*;
 import java.util.*;
+import java.util.List;
+
 import static org.jhotdraw.draw.AttributeKeys.*;
 import org.jhotdraw.draw.event.FigureEvent;
 import org.jhotdraw.geom.Geom;
 import org.jhotdraw.geom.QuadTree;
 import org.jhotdraw.util.*;
 
-/**
- * An implementation of {@link Drawing} which uses a
- * {@link org.jhotdraw.geom.QuadTree} to provide a good responsiveness for
- * drawings which contain many figures.
- *
- * @author Werner Randelshofer
- * @version $Id$
- */
 public class QuadTreeDrawing extends AbstractDrawing {
 
     private static final long serialVersionUID = 1L;
@@ -68,17 +62,7 @@ public class QuadTreeDrawing extends AbstractDrawing {
     /**
      * Implementation note: Sorting can not be done for orphaned children.
      */
-    @Override
-    public java.util.List<Figure> sort(Collection<? extends Figure> c) {
-        ensureSorted();
-        ArrayList<Figure> sorted = new ArrayList<>(c.size());
-        for (Figure f : children) {
-            if (c.contains(f)) {
-                sorted.add(f);
-            }
-        }
-        return sorted;
-    }
+
 
     public void draw(Graphics2D g, Collection<Figure> c) {
         double factor = AttributeKeys.getScaleFactorFromGraphics(g);
@@ -98,6 +82,12 @@ public class QuadTreeDrawing extends AbstractDrawing {
                 }
             }
         }
+    }
+
+    public List<Figure> sort(Collection<? extends Figure> c) {
+        // Remove all figures in c that are not in children
+        c.retainAll(children);
+        return new ArrayList<>(c);
     }
 
     public java.util.List<Figure> getChildren(Rectangle2D.Double bounds) {
@@ -155,10 +145,10 @@ public class QuadTreeDrawing extends AbstractDrawing {
         switch (c.size()) {
             case 0:
                 return null;
-            case 1: 
+            case 1:
                 Figure f = c.iterator().next();
                 return (f == ignore || !f.contains(p)) ? null : f;
-            default: 
+            default:
                 for (Figure f2 : getFiguresFrontToBack()) {
                     if (f2 != ignore && f2.contains(p)) {
                         return f2;
@@ -177,7 +167,7 @@ public class QuadTreeDrawing extends AbstractDrawing {
             case 1:
                 Figure f = c.iterator().next();
                 return (!ignore.contains(f) || !f.contains(p)) ? null : f;
-            default: 
+            default:
                 for (Figure f2 : getFiguresFrontToBack()) {
                     if (!ignore.contains(f2) && f2.contains(p)) {
                         return f2;
