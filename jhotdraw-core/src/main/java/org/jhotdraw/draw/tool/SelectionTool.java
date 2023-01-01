@@ -9,10 +9,12 @@ package org.jhotdraw.draw.tool;
 
 import dk.sdu.mmmi.featuretracer.lib.FeatureEntryPoint;
 import org.jhotdraw.draw.figure.Figure;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.geom.Point2D;
 import java.util.HashSet;
+
 import org.jhotdraw.draw.*;
 import org.jhotdraw.draw.event.ToolAdapter;
 import org.jhotdraw.draw.event.ToolEvent;
@@ -105,6 +107,7 @@ public class SelectionTool extends AbstractTool {
             fireBoundsInvalidated(e.getInvalidatedArea());
         }
     }
+
     private TrackerHandler trackerHandler;
     /**
      * Constant for the name of the selectBehindEnabled property.
@@ -131,11 +134,13 @@ public class SelectionTool extends AbstractTool {
      *
      * @param newValue The new value.
      */
-    public void setSelectBehindEnabled(boolean newValue) {
+    //kan slettes
+
+    /*public void setSelectBehindEnabled(boolean newValue) {
         boolean oldValue = isSelectBehindEnabled;
         isSelectBehindEnabled = newValue;
         firePropertyChange(SELECT_BEHIND_ENABLED_PROPERTY, oldValue, newValue);
-    }
+    }*/
 
     /**
      * Returns the value of the selectBehindEnabled property.
@@ -222,73 +227,96 @@ public class SelectionTool extends AbstractTool {
     public void draw(Graphics2D g) {
         tracker.draw(g);
     }
+
+    //ny metode // Select a figure behind the current selection
+    private Figure getFigureBehindSelection(Drawing drawing, DrawingView view, Point2D.Double p) {
+
+        Figure figure = view.findFigure(anchor);
+        while (figure != null && !figure.isSelectable()) {
+            figure = drawing.findFigureBehind(p, figure);
+        }
+        HashSet<Figure> ignoredFigures = new HashSet<>(view.getSelectedFigures());
+        ignoredFigures.add(figure);
+        Figure figureBehind = view.getDrawing().findFigureBehind(
+                view.viewToDrawing(anchor), ignoredFigures);
+        if (figureBehind != null) {
+            figure = figureBehind;
+        }
+        return figure;
+    }
+    // Note: The search sequence used here, must be
+    // consistent with the search sequence used by the
+    // DefaultHandleTracker, the DefaultSelectAreaTracker and DelegationSelectionTool.
+    // If possible, continue to work with the current selection
+    private Figure searchFigure(Drawing drawing, DrawingView view, Point2D.Double p) {
+        Figure figure = null;
+        if (isSelectBehindEnabled()) {
+            for (Figure f : view.getSelectedFigures()) {
+                if (f.contains(p)) {
+                    figure = f;
+                    break;
+                }
+            }
+        }
+        // If the point is not contained in the current selection,
+        // search for a figure in the drawing.
+        if (figure == null) {
+            figure = view.findFigure(anchor);
+            while (figure != null && !figure.isSelectable()) {
+                figure = drawing.findFigureBehind(p, figure);
+            }
+        }
+        return figure;
+    }
+
     @FeatureEntryPoint(value = "SelectionTool")
     @Override
     public void mousePressed(MouseEvent evt) {
-        if (getView() != null && getView().isEnabled()) {
-            super.mousePressed(evt);
-            DrawingView view = getView();
-            Handle handle = view.findHandle(anchor);
-            Tool newTracker = null;
-            if (handle != null) {
-                newTracker = getHandleTracker(handle);
-            } else {
-                Figure figure;
-                Drawing drawing = view.getDrawing();
-                Point2D.Double p = view.viewToDrawing(anchor);
-                if (isSelectBehindEnabled()
-                        && (evt.getModifiersEx()
-                        & (InputEvent.ALT_DOWN_MASK | InputEvent.CTRL_DOWN_MASK)) != 0) {
-                    // Select a figure behind the current selection
-                    figure = view.findFigure(anchor);
-                    while (figure != null && !figure.isSelectable()) {
-                        figure = drawing.findFigureBehind(p, figure);
-                    }
-                    HashSet<Figure> ignoredFigures = new HashSet<>(view.getSelectedFigures());
-                    ignoredFigures.add(figure);
-                    Figure figureBehind = view.getDrawing().findFigureBehind(
-                            view.viewToDrawing(anchor), ignoredFigures);
-                    if (figureBehind != null) {
-                        figure = figureBehind;
-                    }
-                } else {
-                    // Note: The search sequence used here, must be
-                    // consistent with the search sequence used by the
-                    // DefaultHandleTracker, the DefaultSelectAreaTracker and DelegationSelectionTool.
-                    // If possible, continue to work with the current selection
-                    figure = null;
-                    if (isSelectBehindEnabled()) {
-                        for (Figure f : view.getSelectedFigures()) {
-                            if (f.contains(p)) {
-                                figure = f;
-                                break;
-                            }
-                        }
-                    }
-                    // If the point is not contained in the current selection,
-                    // search for a figure in the drawing.
-                    if (figure == null) {
-                        figure = view.findFigure(anchor);
-                        while (figure != null && !figure.isSelectable()) {
-                            figure = drawing.findFigureBehind(p, figure);
-                        }
-                    }
-                }
-                if (figure != null && figure.isSelectable()) {
-                    newTracker = getDragTracker(figure);
-                } else {
-                    if (!evt.isShiftDown()) {
-                        view.clearSelection();
-                        view.setHandleDetailLevel(0);
-                    }
-                    newTracker = getSelectAreaTracker();
-                }
-            }
-            if (newTracker != null) {
-                setTracker(newTracker);
-            }
-            tracker.mousePressed(evt);
+        if (getView() == null && getView().isEnabled()) {
+            return;
         }
+//code => reformat for at rykker id statement (guard clause)
+        //if (getView() != null && getView().isEnabled()) {
+
+
+        //jeg har slettet en else and then guard cause
+        super.mousePressed(evt);
+        DrawingView view = getView();
+        Handle handle = view.findHandle(anchor);
+        Tool newTracker = null;
+        if (handle != null) {
+            newTracker = getHandleTracker(handle);
+            setTracker(newTracker);
+
+            tracker.mousePressed(evt);
+            return;
+        }
+        Figure figure;
+        Drawing drawing = view.getDrawing();
+        Point2D.Double p = view.viewToDrawing(anchor);
+        if (isSelectBehindEnabled()
+                && (evt.getModifiersEx()
+                & (InputEvent.ALT_DOWN_MASK | InputEvent.CTRL_DOWN_MASK)) != 0) {
+            figure = getFigureBehindSelection(drawing, view, p);
+
+        } else {
+            figure = searchFigure(drawing, view, p);
+        }
+        if (figure != null && figure.isSelectable()) {
+            newTracker = getDragTracker(figure);
+        } else {
+            if (!evt.isShiftDown()) {
+                view.clearSelection();
+                view.setHandleDetailLevel(0);
+            }
+            newTracker = getSelectAreaTracker();
+        }
+
+        if (newTracker != null) {
+            setTracker(newTracker);
+        }
+        tracker.mousePressed(evt);
+
     }
 
     protected void setTracker(Tool newTracker) {
@@ -350,9 +378,9 @@ public class SelectionTool extends AbstractTool {
      * Method to set a {@code SelectAreaTracker}. If you specify null, the
      * {@code SelectionTool} uses the {@code DefaultSelectAreaTracker}.
      */
-    public void setSelectAreaTracker(SelectAreaTracker newValue) {
+   /* public void setSelectAreaTracker(SelectAreaTracker newValue) {
         selectAreaTracker = newValue;
-    }
+    }*/
 
     /**
      * Method to set a {@code DragTracker}. If you specify null, the
