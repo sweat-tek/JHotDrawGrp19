@@ -1,4 +1,4 @@
-import org.jhotdraw.samples.svg.figures.SVGEllipseFigure;
+
 import org.jhotdraw.samples.svg.figures.SVGRectFigure;
 import org.junit.Before;
 import org.junit.Test;
@@ -17,8 +17,8 @@ public class SVGAttributedFigureTest {
     public void setup(){
 
         at = new AffineTransform();
-        at.setToScale(2,2);
-        rect = new SVGRectFigure(0,0,3,5,3,4);
+        at.setToScale( 2, 2);
+        rect = new SVGRectFigure( 0, 0, 3, 5, 3, 4);
 
 
         /*at = mock(AffineTransform.class);
