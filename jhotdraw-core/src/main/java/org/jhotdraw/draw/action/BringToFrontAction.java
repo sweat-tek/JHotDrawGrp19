@@ -11,7 +11,7 @@ import java.util.Collection;
 public abstract class BringToFrontAction extends AbstractArrangeAction {
     private static final long serialVersionUID = 1L;
     public static final String ID = "edit.bringToFront";
-    private SendToBackAction sendToBackAction;
+
     @Override
     String getID() {
         return ID;

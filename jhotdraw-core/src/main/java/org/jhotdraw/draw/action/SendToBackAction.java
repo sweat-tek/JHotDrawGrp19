@@ -13,7 +13,7 @@ public abstract class SendToBackAction extends AbstractArrangeAction {
 
     private static final long serialVersionUID = 1L;
     public static final String ID = "edit.sendToBack";
-    private BringToFrontAction bringToFrontAction;
+
 
     @Override
     String getID() {
