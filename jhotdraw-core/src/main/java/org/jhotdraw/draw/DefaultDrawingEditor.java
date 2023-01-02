@@ -8,6 +8,7 @@
 package org.jhotdraw.draw;
 
 import org.jhotdraw.draw.figure.Figure;
+
 import java.awt.*;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
@@ -19,13 +20,16 @@ import javax.swing.ActionMap;
 import javax.swing.InputMap;
 import javax.swing.JComponent;
 import javax.swing.KeyStroke;
+
 import org.jhotdraw.action.edit.CopyAction;
 import org.jhotdraw.action.edit.CutAction;
 import org.jhotdraw.action.edit.DeleteAction;
 import org.jhotdraw.action.edit.PasteAction;
 import org.jhotdraw.action.edit.SelectAllAction;
 import org.jhotdraw.beans.AbstractBean;
+
 import static org.jhotdraw.draw.AttributeKeys.*;
+
 import org.jhotdraw.draw.action.*;
 import org.jhotdraw.draw.event.ToolAdapter;
 import org.jhotdraw.draw.event.ToolEvent;
@@ -33,7 +37,7 @@ import org.jhotdraw.draw.tool.Tool;
 
 /**
  * A default implementation of {@link DrawingEditor}.
- *
+ * <p>
  * XXX - DefaultDrawingEditor should not publicly implement ToolListener.
  *
  * @author Werner Randelshofer
@@ -74,6 +78,7 @@ public class DefaultDrawingEditor extends AbstractBean implements DrawingEditor 
             }
         }
     }
+
     /**
      * The input map of the drawing editor.
      */
@@ -113,8 +118,8 @@ public class DefaultDrawingEditor extends AbstractBean implements DrawingEditor 
         actionMap = createActionMap();
     }
 
-    private void removeTool(Tool tool){
-        if (tool == null){
+    private void removeTool(Tool tool) {
+        if (tool == null) {
             return;
         }
         for (DrawingView v : views) {
@@ -129,38 +134,31 @@ public class DefaultDrawingEditor extends AbstractBean implements DrawingEditor 
         tool.removeToolListener(toolHandler);
     }
     
-
-    private void addTool(Tool tool){
-        if (tool == null){
+    private void addTool(Tool tool) {
+        if (tool == null) {
             return;
         }
         tool.activate(this);
-            for (DrawingView v : views) {
-                v.addMouseListener(tool);
-                v.addMouseMotionListener(tool);
-                v.addKeyListener(tool);
-                if (tool instanceof MouseWheelListener) {
-                    v.addMouseWheelListener((MouseWheelListener) tool);
-                }
+        for (DrawingView v : views) {
+            v.addMouseListener(tool);
+            v.addMouseMotionListener(tool);
+            v.addKeyListener(tool);
+            if (tool instanceof MouseWheelListener) {
+                v.addMouseWheelListener((MouseWheelListener) tool);
             }
-            tool.addToolListener(toolHandler);
+        }
+        tool.addToolListener(toolHandler);
     }
 
     @Override
     public void setTool(Tool newValue) {
-        
         if (newValue == tool) {
             return;
         }
-
         Tool oldValue = tool;
-
         removeTool(tool);
-
         tool = newValue;
         addTool(tool);
-        
-        
         firePropertyChange(TOOL_PROPERTY, oldValue, newValue);
     }
 
