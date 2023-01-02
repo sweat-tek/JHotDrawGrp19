@@ -10,6 +10,9 @@ import org.jhotdraw.draw.figure.Figure;
 import org.jhotdraw.draw.figure.RectangleFigure;
 import org.junit.*;
 
+import java.util.Iterator;
+import static org.junit.Assert.*;
+
 public class BringToFrontActionTest {
     public BringToFrontActionTest() {
     }
@@ -31,7 +34,8 @@ public class BringToFrontActionTest {
     }
 
     @Test
-    public void bringtofrontTest(){
+    public void bringtofrontTest() {
+        //creates a new drawing and two rectangle figures.
         Drawing drawing = new DefaultDrawing();
         Figure figure1 = new RectangleFigure(0, 0, 10, 10);
         Figure figure2 = new RectangleFigure(10, 10, 10, 10);
@@ -48,5 +52,8 @@ public class BringToFrontActionTest {
 
         BringToFrontAction.bringToFront(view, view.getSelectedFigures());
 
+        Iterator<Figure> i = drawing.getFiguresFrontToBack().iterator();
+        assertEquals(figure2, i.next());
+        assertEquals(figure1, i.next());
     }
 }

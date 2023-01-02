@@ -9,6 +9,10 @@ import org.jhotdraw.draw.figure.Figure;
 import org.jhotdraw.draw.figure.RectangleFigure;
 import org.junit.*;
 
+import java.util.Iterator;
+
+import static org.junit.Assert.assertEquals;
+
 
 public class SendToBackActionTest {
 
@@ -48,6 +52,10 @@ public class SendToBackActionTest {
         view.addToSelection(figure2);
 
         SendToBackAction.sendToBack(view, view.getSelectedFigures());
+
+        Iterator<Figure> i = drawing.getFiguresFrontToBack().iterator();
+        assertEquals(figure2, i.next());
+        assertEquals(figure1, i.next());
 
     }
 
