@@ -20,9 +20,6 @@ import org.jhotdraw.draw.Drawing;
 import org.jhotdraw.draw.figure.TextFigure;
 import org.jhotdraw.xml.*;
 
-import static netscape.javascript.JSObject.*;
-import static netscape.javascript.JSObject.getWindow;
-
 /**
  * DrawLiveConnectApplet. Supports loading and saving of images to JavaScript.
  *
@@ -127,7 +124,7 @@ public class DrawLiveConnectApplet extends JApplet {
                     if (methodName.indexOf('(') > 0) {
                         methodName = methodName.substring(0, methodName.indexOf('(') - 1);
                     }
-                    JSObject win = getWindow(DrawLiveConnectApplet.this);
+                    JSObject win = JSObject.getWindow(DrawLiveConnectApplet.this);
                     Object data = win.call(methodName, new Object[0]);
                     if (data instanceof String) {
                         setData((String) data);
@@ -241,7 +238,7 @@ public class DrawLiveConnectApplet extends JApplet {
             if (methodName.indexOf('(') > 0) {
                 methodName = methodName.substring(0, methodName.indexOf('(') - 1);
             }
-            JSObject win = getWindow(this);
+            JSObject win = JSObject.getWindow(this);
             win.call(methodName, new Object[]{getData()});
         } catch (Throwable t) {
             TextFigure tf = new TextFigure("Fehler: " + t);
@@ -257,7 +254,7 @@ public class DrawLiveConnectApplet extends JApplet {
             if (methodName.indexOf('(') > 0) {
                 methodName = methodName.substring(0, methodName.indexOf('(') - 1);
             }
-            JSObject win = getWindow(this);
+            JSObject win = JSObject.getWindow(this);
             Object result = win.call(methodName, new Object[0]);
             if (result instanceof String) {
                 setData((String) result);

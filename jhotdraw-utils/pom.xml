@@ -15,10 +15,5 @@
 			<version>6.8.21</version>
 			<scope>test</scope>
 		</dependency>
-        <dependency>
-            <groupId>dk.sdu.mmmi</groupId>
-            <artifactId>featuretracerlite</artifactId>
-            <version>1.0</version>
-        </dependency>
-    </dependencies>
+	</dependencies>
 </project>

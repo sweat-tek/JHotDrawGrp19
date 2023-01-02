@@ -12,9 +12,6 @@ import java.beans.*;
 import java.util.*;
 import javax.swing.*;
 import javax.swing.undo.*;
-
-
-
 import org.jhotdraw.util.*;
 
 /**
@@ -25,7 +22,6 @@ import org.jhotdraw.util.*;
  * @version $Id$
  */
 public class UndoRedoManager extends UndoManager { //javax.swing.undo.UndoManager {
-
 
     private static final long serialVersionUID = 1L;
     protected PropertyChangeSupport propertySupport = new PropertyChangeSupport(this);
@@ -224,7 +220,6 @@ public class UndoRedoManager extends UndoManager { //javax.swing.undo.UndoManage
      * Updates the properties of the UndoAction
      * and of the RedoAction.
      */
-
     private void updateActions() {
         String label;
         if (DEBUG) {
@@ -258,7 +253,6 @@ public class UndoRedoManager extends UndoManager { //javax.swing.undo.UndoManage
      * while undo is in progress.
      */
     @Override
-
     public void undo()
             throws CannotUndoException {
         undoOrRedoInProgress = true;
@@ -276,7 +270,6 @@ public class UndoRedoManager extends UndoManager { //javax.swing.undo.UndoManage
      * while redo is in progress.
      */
     @Override
-
     public void redo()
             throws CannotUndoException {
         undoOrRedoInProgress = true;
@@ -294,7 +287,6 @@ public class UndoRedoManager extends UndoManager { //javax.swing.undo.UndoManage
      * while undo or redo is in progress.
      */
     @Override
-
     public void undoOrRedo()
             throws CannotUndoException, CannotRedoException {
         undoOrRedoInProgress = true;
