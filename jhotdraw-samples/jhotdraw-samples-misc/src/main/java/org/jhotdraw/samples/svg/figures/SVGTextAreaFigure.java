@@ -7,6 +7,7 @@
  */
 package org.jhotdraw.samples.svg.figures;
 
+import dk.sdu.mmmi.featuretracer.lib.FeatureEntryPoint;
 import org.jhotdraw.draw.figure.TextHolderFigure;
 import java.awt.*;
 import java.awt.font.*;
@@ -34,38 +35,33 @@ import org.jhotdraw.geom.Geom;
 import org.jhotdraw.geom.Insets2D;
 import org.jhotdraw.samples.svg.Gradient;
 import org.jhotdraw.samples.svg.SVGAttributeKeys;
+import org.jhotdraw.samples.svg.TextAreaRectangle;
+
 import static org.jhotdraw.samples.svg.SVGAttributeKeys.*;
 
-/**
- * SVGTextArea.
- *
- * @author Werner Randelshofer
- * @version $Id$
- */
-public class SVGTextAreaFigure extends SVGAttributedFigure
-        implements SVGFigure, TextHolderFigure {
+
+public class SVGTextAreaFigure extends SVGAttributedFigure implements SVGFigure, TextHolderFigure {
 
     private static final long serialVersionUID = 1L;
     private Rectangle2D.Double bounds = new Rectangle2D.Double();
     private boolean editable = true;
     private static final BasicStroke DASHES = new BasicStroke(1f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 0f, new float[]{4f, 4f}, 0f);
-    /**
-     * This is a cached value to improve the performance of method isTextOverflow();
-     */
+
+    // This is a cached value to improve the performance of method isTextOverflow();
     private Boolean isTextOverflow;
-    /**
-     * This is used to perform faster drawing and hit testing.
-     */
+
+    // This is used to perform faster drawing and hit testing.
     private transient Rectangle2D.Double cachedDrawingArea;
     private transient Shape cachedTextShape;
+    
 
-    /**
-     * Creates a new instance.
-     */
+
+    // Creates a new instance
     public SVGTextAreaFigure() {
         this("Text");
     }
 
+    @FeatureEntryPoint(value = "textArea")
     public SVGTextAreaFigure(String text) {
         setText(text);
         SVGAttributeKeys.setDefaults(this);
@@ -83,6 +79,7 @@ public class SVGTextAreaFigure extends SVGAttributedFigure
     }
 
     @Override
+    @FeatureEntryPoint(value = "textArea")
     protected void drawStroke(Graphics2D g) {
         g.draw(getTextShape());
     }
@@ -109,9 +106,8 @@ public class SVGTextAreaFigure extends SVGAttributedFigure
         return (Rectangle2D.Double) cachedDrawingArea.clone();
     }
 
-    /**
-     * Checks if a Point2D.Double is inside the figure.
-     */
+
+    // Checks if a Point2D.Double is inside the figure
     @Override
     public boolean contains(Point2D.Double p) {
         if (get(TRANSFORM) != null) {
@@ -129,6 +125,7 @@ public class SVGTextAreaFigure extends SVGAttributedFigure
         if (cachedTextShape == null) {
             Path2D.Double shape;
             cachedTextShape = shape = new Path2D.Double();
+
             if (getText() != null || isEditable()) {
                 Font font = getFont();
                 boolean isUnderlined = get(FONT_UNDERLINE);
@@ -138,16 +135,18 @@ public class SVGTextAreaFigure extends SVGAttributedFigure
                         bounds.y + insets.top,
                         bounds.width - insets.left - insets.right,
                         bounds.height - insets.top - insets.bottom);
-                float leftMargin = (float) textRect.x;
-                float rightMargin = (float) Math.max(leftMargin + 1, textRect.x + textRect.width);
-                float verticalPos = (float) textRect.y;
-                float maxVerticalPos = (float) (textRect.y + textRect.height);
-                if (leftMargin < rightMargin) {
+                //New
+                TextAreaRectangle textAreaRectangle = new TextAreaRectangle();
+                textAreaRectangle.setLeftMargin((float) textRect.x);
+                textAreaRectangle.setRightMargin((float) Math.max(textAreaRectangle.getLeftMargin() + 1, textRect.x + textRect.width));
+                textAreaRectangle.setVerticalPos((float) textRect.y);
+                textAreaRectangle.setMaxVerticalPos((float) (textRect.y + textRect.height));
+                //new
+                if (textAreaRectangle.getLeftMargin() < textAreaRectangle.getRightMargin()) {
+
                     float tabWidth = (float) (getTabSize() * font.getStringBounds("m", getFontRenderContext()).getWidth());
-                    float[] tabStops = new float[(int) (textRect.width / tabWidth)];
-                    for (int i = 0; i < tabStops.length; i++) {
-                        tabStops[i] = (float) (textRect.x + (int) (tabWidth * (i + 1)));
-                    }
+                    //new
+                    float[] tabStops = creatingTabStops(tabWidth, textRect);
                     if (getText() != null) {
                         String[] paragraphs = getText().split("\n"); //Strings.split(getText(), '\n');
                         for (int i = 0; i < paragraphs.length; i++) {
@@ -162,9 +161,9 @@ public class SVGTextAreaFigure extends SVGAttributedFigure
                             int tabCount = paragraphs[i].split("\t").length - 1;
                             Rectangle2D.Double paragraphBounds = appendParagraph(
                                     shape, as.getIterator(),
-                                    verticalPos, maxVerticalPos, leftMargin, rightMargin, tabStops, tabCount);
-                            verticalPos = (float) (paragraphBounds.y + paragraphBounds.height);
-                            if (verticalPos > textRect.y + textRect.height) {
+                                    textAreaRectangle, tabStops, tabCount);
+                            textAreaRectangle.setVerticalPos((float) (paragraphBounds.y + paragraphBounds.height));
+                            if (textAreaRectangle.getVerticalPos() > textRect.y + textRect.height) {
                                 break;
                             }
                         }
@@ -183,23 +182,19 @@ public class SVGTextAreaFigure extends SVGAttributedFigure
      * @param shape Shape to which to add the glyphs of the paragraph. This
      * parameter is null, if we only want to measure the size of the paragraph.
      * @param styledText the text of the paragraph.
-     * @param verticalPos the top bound of the paragraph
-     * @param maxVerticalPos the bottom bound of the paragraph
-     * @param leftMargin the left bound of the paragraph
-     * @param rightMargin the right bound of the paragraph
+     * @param textAreaRectangle represent the paragraph boundaries
      * @param tabStops an array with tab stops
      * @param tabCount the number of entries in tabStops which contain actual
      * values
      * @return Returns the actual bounds of the paragraph.
      */
+    @FeatureEntryPoint(value = "textArea")
     private Rectangle2D.Double appendParagraph(Path2D.Double shape,
             AttributedCharacterIterator styledText,
-            float verticalPos, float maxVerticalPos,
-            float leftMargin, float rightMargin,
-            float[] tabStops, int tabCount) {
+            TextAreaRectangle textAreaRectangle, float[] tabStops, int tabCount) {
         // assume styledText is an AttributedCharacterIterator, and the number
         // of tabs in styledText is tabCount
-        Rectangle2D.Double paragraphBounds = new Rectangle2D.Double(leftMargin, verticalPos, 0, 0);
+        Rectangle2D.Double paragraphBounds = new Rectangle2D.Double(textAreaRectangle.getLeftMargin(), textAreaRectangle.getVerticalPos(), 0, 0);
         int[] tabLocations = new int[tabCount + 1];
         int i = 0;
         for (char c = styledText.first(); c != CharacterIterator.DONE; c = styledText.next()) {
@@ -224,36 +219,33 @@ public class SVGTextAreaFigure extends SVGAttributedFigure
             boolean lineContainsText = false;
             boolean lineComplete = false;
             float maxAscent = 0, maxDescent = 0;
-            float horizontalPos = leftMargin;
+            //new
+            float horizontalPos = textAreaRectangle.getLeftMargin();
+
             LinkedList<TextLayout> layouts = new LinkedList<TextLayout>();
             LinkedList<Float> penPositions = new LinkedList<Float>();
             while (!lineComplete) {
-                float wrappingWidth = rightMargin - horizontalPos;
+                //new
+                float wrappingWidth = textAreaRectangle.getRightMargin() - horizontalPos;
+
                 TextLayout layout = null;
-                layout
-                        = measurer.nextLayout(wrappingWidth,
-                                tabLocations[currentTab] + 1,
-                                lineContainsText);
+                layout = measurer.nextLayout(wrappingWidth, tabLocations[currentTab] + 1, lineContainsText);
                 // layout can be null if lineContainsText is true
                 if (layout != null) {
                     layouts.add(layout);
                     penPositions.add(horizontalPos);
                     horizontalPos += layout.getAdvance();
                     maxAscent = Math.max(maxAscent, layout.getAscent());
-                    maxDescent = Math.max(maxDescent,
-                            layout.getDescent() + layout.getLeading());
-                } else {
-                    lineComplete = true;
+                    maxDescent = Math.max(maxDescent, layout.getDescent() + layout.getLeading());
                 }
-                lineContainsText = true;
+
                 if (measurer.getPosition() == tabLocations[currentTab] + 1) {
                     currentTab++;
                 }
-                if (measurer.getPosition() == styledText.getEndIndex()) {
-                    lineComplete = true;
-                } else if (tabStops.length == 0 || horizontalPos >= tabStops[tabStops.length - 1]) {
-                    lineComplete = true;
-                }
+
+                lineComplete = completeLine(layout, measurer, styledText, horizontalPos, tabStops);
+                lineContainsText = true;
+
                 if (!lineComplete) {
                     // move to next tab stop
                     int j;
@@ -262,31 +254,51 @@ public class SVGTextAreaFigure extends SVGAttributedFigure
                     horizontalPos = tabStops[j];
                 }
             }
-            verticalPos += maxAscent;
-            if (verticalPos > maxVerticalPos) {
+            //new
+            textAreaRectangle.setVerticalPos(textAreaRectangle.getVerticalPos() + maxAscent);
+            if (textAreaRectangle.getVerticalPos() > textAreaRectangle.getMaxVerticalPos()) {
                 break;
             }
-            Iterator<TextLayout> layoutEnum = layouts.iterator();
-            Iterator<Float> positionEnum = penPositions.iterator();
-            // now iterate through layouts and draw them
-            while (layoutEnum.hasNext()) {
-                TextLayout nextLayout = layoutEnum.next();
-                float nextPosition = positionEnum.next();
-                AffineTransform tx = new AffineTransform();
-                tx.translate(nextPosition, verticalPos);
-                if (shape != null) {
-                    Shape outline = nextLayout.getOutline(tx);
-                    shape.append(outline, false);
-                }
-                Rectangle2D layoutBounds = nextLayout.getBounds();
-                paragraphBounds.add(new Rectangle2D.Double(layoutBounds.getX() + nextPosition,
-                        layoutBounds.getY() + verticalPos,
-                        layoutBounds.getWidth(),
-                        layoutBounds.getHeight()));
-            }
-            verticalPos += maxDescent;
+            drawTextLayout(textAreaRectangle.getVerticalPos(), layouts, penPositions, shape, paragraphBounds);
+            textAreaRectangle.setVerticalPos(textAreaRectangle.getVerticalPos() + maxAscent);
         }
         return paragraphBounds;
+    }
+
+    // completeLine() created after refactoring
+    public boolean completeLine(TextLayout layout, LineBreakMeasurer measurer, AttributedCharacterIterator styledText, float horizontalPos, float[] tabStops) {
+        boolean completion = false;
+        if (measurer.getPosition() == styledText.getEndIndex()) {
+            completion = true;
+        if (layout == null) {
+            completion = true;
+        }
+        } else if (tabStops.length == 0 || horizontalPos >= tabStops[tabStops.length - 1]) {
+            completion = true;
+        }
+        return completion;
+    }
+
+    // drawTextLayout() created after refactoring  
+    public void drawTextLayout(float verticalPos, LinkedList<TextLayout> layouts, LinkedList<Float> penPositions, Path2D.Double shape, Rectangle2D.Double paragraphBounds) {
+        Iterator<TextLayout> layoutEnum = layouts.iterator();
+        Iterator<Float> positionEnum = penPositions.iterator();
+        // now iterate through layouts and draw them
+        while (layoutEnum.hasNext()) {
+            TextLayout nextLayout = layoutEnum.next();
+            float nextPosition = positionEnum.next();
+            AffineTransform tx = new AffineTransform();
+            tx.translate(nextPosition, verticalPos);
+            if (shape != null) {
+                Shape outline = nextLayout.getOutline(tx);
+                shape.append(outline, false);
+            }
+            Rectangle2D layoutBounds = nextLayout.getBounds();
+            paragraphBounds.add(new Rectangle2D.Double(layoutBounds.getX() + nextPosition,
+                    layoutBounds.getY() + verticalPos,
+                    layoutBounds.getWidth(),
+                    layoutBounds.getHeight()));
+        }
     }
 
     @Override
@@ -298,11 +310,8 @@ public class SVGTextAreaFigure extends SVGAttributedFigure
         invalidate();
     }
 
-    /**
-     * Transforms the figure.
-     *
-     * @param tx the transformation.
-     */
+
+    //Transforms the figure.
     @Override
     public void transform(AffineTransform tx) {
         if (get(TRANSFORM) != null
@@ -383,17 +392,13 @@ public class SVGTextAreaFigure extends SVGAttributedFigure
         super.set(key, newValue);
     }
 
-    /**
-     * Sets the text shown by the text figure.
-     */
+    // Sets the text shown by the text figure
     @Override
     public void setText(String newText) {
         set(TEXT, newText);
     }
 
-    /**
-     * Returns the insets used to draw text.
-     */
+    // Returns the insets used to draw text
     @Override
     public Insets2D.Double getInsets() {
         double sw = (get(STROKE_COLOR) == null) ? 0 : Math.ceil(get(STROKE_WIDTH) / 2);
@@ -467,8 +472,8 @@ public class SVGTextAreaFigure extends SVGAttributedFigure
         }
         return (float) Math.abs(p.y);
     }
-// EDITING
 
+    // EDITING
     @Override
     public boolean isEditable() {
         return editable;
@@ -500,11 +505,8 @@ public class SVGTextAreaFigure extends SVGAttributedFigure
         return handles;
     }
 
-    /**
-     * Returns a specialized tool for the given coordinate.
-     * <p>
-     * Returns null, if no specialized tool is available.
-     */
+
+    // Returns a specialized tool for the given coordinate - Returns null, if no specialized tool is available
     @Override
     public Tool getTool(Point2D.Double p) {
         if (isEditable() && contains(p)) {
@@ -513,14 +515,14 @@ public class SVGTextAreaFigure extends SVGAttributedFigure
         }
         return null;
     }
-// CONNECTING
-// COMPOSITE FIGURES
-// CLONING
-// EVENT HANDLING
 
-    /**
-     * Gets the text shown by the text figure.
-     */
+    // CONNECTING
+    // COMPOSITE FIGURES
+    // CLONING
+    // EVENT HANDLING
+
+
+    // Gets the text shown by the text figure
     @Override
     public boolean isEmpty() {
         return getText() == null || getText().length() == 0;
@@ -553,21 +555,22 @@ public class SVGTextAreaFigure extends SVGAttributedFigure
      * if you want the width to be unlimited.
      * @return width and height needed to lay out the text.
      */
+
+
     public Dimension2DDouble getPreferredTextSize(double maxWidth) {
         Rectangle2D.Double textRect = new Rectangle2D.Double();
         if (getText() != null) {
             Font font = getFont();
             boolean isUnderlined = get(FONT_UNDERLINE);
-            float leftMargin = 0;
-            float rightMargin = (float) maxWidth - 1;
-            float verticalPos = 0;
-            float maxVerticalPos = Float.MAX_VALUE;
-            if (leftMargin < rightMargin) {
+            //new
+            TextAreaRectangle textAreaRectangle = new TextAreaRectangle();
+            textAreaRectangle.setRightMargin((float) maxWidth - 1);
+            textAreaRectangle.setMaxVerticalPos(Float.MAX_VALUE);
+            if (textAreaRectangle.getLeftMargin() < textAreaRectangle.getRightMargin()) {
+
                 float tabWidth = (float) (getTabSize() * font.getStringBounds("m", getFontRenderContext()).getWidth());
-                float[] tabStops = new float[(int) (textRect.width / tabWidth)];
-                for (int i = 0; i < tabStops.length; i++) {
-                    tabStops[i] = (float) (textRect.x + (int) (tabWidth * (i + 1)));
-                }
+                //new
+                float[] tabStops = creatingTabStops(tabWidth, textRect);
                 if (getText() != null) {
                     String[] paragraphs = getText().split("\n"); //Strings.split(getText(), '\n');
                     for (int i = 0; i < paragraphs.length; i++) {
@@ -580,14 +583,23 @@ public class SVGTextAreaFigure extends SVGAttributedFigure
                             as.addAttribute(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_LOW_ONE_PIXEL);
                         }
                         int tabCount = paragraphs[i].split("\t").length - 1;
-                        Rectangle2D.Double paragraphBounds = appendParagraph(null, as.getIterator(), verticalPos, maxVerticalPos, leftMargin, rightMargin, tabStops, tabCount);
-                        verticalPos = (float) (paragraphBounds.y + paragraphBounds.height);
+                        Rectangle2D.Double paragraphBounds = appendParagraph(null, as.getIterator(), textAreaRectangle, tabStops, tabCount);
+                        textAreaRectangle.setVerticalPos((float) (paragraphBounds.y + paragraphBounds.height));
                         textRect.add(paragraphBounds);
                     }
                 }
             }
         }
         return new Dimension2DDouble(Math.abs(textRect.x) + textRect.width, Math.abs(textRect.y) + textRect.height);
+    }
+
+    //New method - creatingTabStops
+    public float[] creatingTabStops(float tabWidth, Rectangle2D.Double textRect) {
+        float[] tabStops = new float[(int) (textRect.width / tabWidth)];
+        for (int i = 0; i < tabStops.length; i++) {
+            tabStops[i] = (float) (textRect.x + (int) (tabWidth * (i + 1)));
+        }
+        return tabStops;
     }
 
     @Override

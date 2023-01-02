@@ -1,0 +1,76 @@
+{
+  "className": "org.jhotdraw.samples.svg.figures.SVGTextAreaFigureGivenTest",
+  "name": "SVG Text Area Figure Given",
+  "scenarios": [
+    {
+      "className": "org.jhotdraw.samples.svg.figures.SVGTextAreaFigureGivenTest",
+      "testMethodName": "text_area",
+      "description": "text area",
+      "tagIds": [],
+      "explicitParameters": [],
+      "derivedParameters": [],
+      "scenarioCases": [
+        {
+          "caseNr": 1,
+          "steps": [
+            {
+              "name": "the user wants to create text area",
+              "words": [
+                {
+                  "value": "Given",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "the user wants to create text area"
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 40919250,
+              "depth": 0,
+              "parentFailed": false
+            },
+            {
+              "name": "the button is clicked",
+              "words": [
+                {
+                  "value": "When",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "the button is clicked"
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 908250,
+              "depth": 0,
+              "parentFailed": false
+            },
+            {
+              "name": "the user can create a text area",
+              "words": [
+                {
+                  "value": "Then",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "the user can create a text area"
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 1026542,
+              "depth": 0,
+              "parentFailed": false
+            }
+          ],
+          "explicitArguments": [],
+          "derivedArguments": [],
+          "status": "SUCCESS",
+          "durationInNanos": 2087277459
+        }
+      ],
+      "casesAsTable": false,
+      "durationInNanos": 2087277459
+    }
+  ],
+  "tagMap": {}
+}

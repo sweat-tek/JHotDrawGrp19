@@ -7,6 +7,7 @@
  */
 package org.jhotdraw.samples.svg.figures;
 
+import dk.sdu.mmmi.featuretracer.lib.FeatureEntryPoint;
 import org.jhotdraw.draw.figure.TextHolderFigure;
 import java.awt.*;
 import java.awt.font.*;
@@ -66,23 +67,24 @@ public class SVGTextFigure
     public SVGTextFigure() {
         this("Text");
     }
-
+    @FeatureEntryPoint(value = "TextTool")
     public SVGTextFigure(String text) {
         setText(text);
         SVGAttributeKeys.setDefaults(this);
         setConnectable(false);
     }
 
+@FeatureEntryPoint(value = "TextTool")
     // DRAWING
     @Override
     protected void drawText(java.awt.Graphics2D g) {
     }
-
+@FeatureEntryPoint(value = "TextTool")
     @Override
     protected void drawFill(Graphics2D g) {
         g.fill(getTextShape());
     }
-
+@FeatureEntryPoint(value = "TextTool")
     @Override
     protected void drawStroke(Graphics2D g) {
         g.draw(getTextShape());
