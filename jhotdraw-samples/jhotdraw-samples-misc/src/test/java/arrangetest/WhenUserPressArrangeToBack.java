@@ -9,7 +9,7 @@ import org.jhotdraw.draw.figure.Figure;
 import org.junit.Test;
 
 import java.util.Collection;
-import java.util.Iterator;
+
 
 public class WhenUserPressArrangeToBack extends Stage<WhenUserPressArrangeToBack> {
 

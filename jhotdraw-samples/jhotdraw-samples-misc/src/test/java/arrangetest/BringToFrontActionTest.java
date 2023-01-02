@@ -1,5 +1,6 @@
 package arrangetest;
 
+
 import org.jhotdraw.draw.DefaultDrawing;
 import org.jhotdraw.draw.DefaultDrawingView;
 import org.jhotdraw.draw.Drawing;

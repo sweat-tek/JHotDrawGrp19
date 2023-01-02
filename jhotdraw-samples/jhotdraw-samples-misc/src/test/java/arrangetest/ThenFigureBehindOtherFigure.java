@@ -2,16 +2,15 @@ package arrangetest;
 
 import com.tngtech.jgiven.Stage;
 import com.tngtech.jgiven.annotation.ExpectedScenarioState;
-import com.tngtech.jgiven.annotation.ProvidedScenarioState;
 import org.jhotdraw.draw.DefaultDrawingView;
-import org.jhotdraw.draw.Drawing;
+
 import org.jhotdraw.draw.DrawingView;
 import org.jhotdraw.draw.figure.CompositeFigure;
 import org.jhotdraw.draw.figure.Figure;
-import org.junit.Assert;
+
 import org.junit.Test;
 
-import java.util.Iterator;
+
 import java.util.List;
 
 import static junit.framework.TestCase.assertEquals;
