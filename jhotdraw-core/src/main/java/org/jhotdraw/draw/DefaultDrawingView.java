@@ -1335,9 +1335,8 @@ public class DefaultDrawingView
         });
     }
 
-    @Override
-    public void duplicate() {
-        Collection<Figure> sorted = getDrawing().sort(getSelectedFigures());
+    private ArrayList<Figure> createDuplicates(Set<Figure> figures) {
+        Collection<Figure> sorted = getDrawing().sort(figures);
         HashMap<Figure, Figure> originalToDuplicateMap = new HashMap<>(sorted.size());
         clearSelection();
         final ArrayList<Figure> duplicates = new ArrayList<>(sorted.size());
@@ -1353,6 +1352,11 @@ public class DefaultDrawingView
         for (Figure f : duplicates) {
             f.remap(originalToDuplicateMap, false);
         }
+        return duplicates;
+    }
+    @Override
+    public void duplicate() {
+        ArrayList<Figure> duplicates = createDuplicates(getSelectedFigures());
         addToSelection(duplicates);
         getDrawing().fireUndoableEditHappened(new AbstractUndoableEdit() {
             private static final long serialVersionUID = 1L;
