@@ -54,8 +54,8 @@ public class SendToBackActionTest {
         SendToBackAction.sendToBack(view, view.getSelectedFigures());
 
         Iterator<Figure> i = drawing.getFiguresFrontToBack().iterator();
-        assertEquals(figure2, i.next());
         assertEquals(figure1, i.next());
+        assertEquals(figure2, i.next());
 
     }
 

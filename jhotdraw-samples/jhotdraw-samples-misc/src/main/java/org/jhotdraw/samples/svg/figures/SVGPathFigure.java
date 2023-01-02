@@ -94,7 +94,6 @@ public class SVGPathFigure extends AbstractAttributedCompositeFigure implements 
 
             if (drawingArea.isEmpty()) {
                 return;
-
             }
             BufferedImage buf = new BufferedImage(
                     Math.max(1, (int) ((2 + drawingArea.width) * g.getTransform().getScaleX())),
