@@ -113,27 +113,28 @@ public class DefaultDrawingEditor extends AbstractBean implements DrawingEditor 
         actionMap = createActionMap();
     }
 
-    @Override
-    public void setTool(Tool newValue) {
-        Tool oldValue = tool;
-        if (newValue == tool) {
+    private void removeTool(Tool tool){
+        if (tool == null){
             return;
         }
-        if (tool != null) {
-            for (DrawingView v : views) {
-                v.removeMouseListener(tool);
-                v.removeMouseMotionListener(tool);
-                v.removeKeyListener(tool);
-                if (tool instanceof MouseWheelListener) {
-                    v.removeMouseWheelListener((MouseWheelListener) tool);
-                }
+        for (DrawingView v : views) {
+            v.removeMouseListener(tool);
+            v.removeMouseMotionListener(tool);
+            v.removeKeyListener(tool);
+            if (tool instanceof MouseWheelListener) {
+                v.removeMouseWheelListener((MouseWheelListener) tool);
             }
-            tool.deactivate(this);
-            tool.removeToolListener(toolHandler);
         }
-        tool = newValue;
-        if (tool != null) {
-            tool.activate(this);
+        tool.deactivate(this);
+        tool.removeToolListener(toolHandler);
+    }
+    
+
+    private void addTool(Tool tool){
+        if (tool == null){
+            return;
+        }
+        tool.activate(this);
             for (DrawingView v : views) {
                 v.addMouseListener(tool);
                 v.addMouseMotionListener(tool);
@@ -143,7 +144,23 @@ public class DefaultDrawingEditor extends AbstractBean implements DrawingEditor 
                 }
             }
             tool.addToolListener(toolHandler);
+    }
+
+    @Override
+    public void setTool(Tool newValue) {
+        
+        if (newValue == tool) {
+            return;
         }
+
+        Tool oldValue = tool;
+
+        removeTool(tool);
+
+        tool = newValue;
+        addTool(tool);
+        
+        
         firePropertyChange(TOOL_PROPERTY, oldValue, newValue);
     }
 
