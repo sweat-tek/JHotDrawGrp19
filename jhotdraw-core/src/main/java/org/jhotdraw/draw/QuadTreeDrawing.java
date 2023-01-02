@@ -9,10 +9,13 @@ package org.jhotdraw.draw;
 
 import org.jhotdraw.draw.figure.Figure;
 import org.jhotdraw.draw.figure.AbstractCompositeFigure;
+
 import java.awt.*;
 import java.awt.geom.*;
 import java.util.*;
+
 import static org.jhotdraw.draw.AttributeKeys.*;
+
 import org.jhotdraw.draw.event.FigureEvent;
 import org.jhotdraw.geom.Geom;
 import org.jhotdraw.geom.QuadTree;
@@ -83,22 +86,27 @@ public class QuadTreeDrawing extends AbstractDrawing {
     public void draw(Graphics2D g, Collection<Figure> c) {
         double factor = AttributeKeys.getScaleFactorFromGraphics(g);
         for (Figure f : c) {
-            if (f.isVisible()) {
-                f.draw(g);
-                if (isDebugMode()) {
-                    Graphics2D g2 = (Graphics2D) g.create();
-                    try {
-                        g2.setStroke(new BasicStroke(0));
-                        g2.setColor(Color.BLUE);
-                        Rectangle2D.Double rect = f.getDrawingArea(factor);
-                        g2.draw(rect);
-                    } finally {
-                        g2.dispose();
-                    }
-                }
+            if (!f.isVisible()) {
+                return; //gå ud af for loop og mindre uoverskuelig
+            }
+
+            f.draw(g);
+            if (!isDebugMode()) {
+                return; //guard clause
+            }
+
+            Graphics2D g2 = (Graphics2D) g.create();
+            try {
+                g2.setStroke(new BasicStroke(0));
+                g2.setColor(Color.BLUE);
+                Rectangle2D.Double rect = f.getDrawingArea(factor);
+                g2.draw(rect);
+            } finally {
+                g2.dispose();
             }
         }
     }
+
 
     public java.util.List<Figure> getChildren(Rectangle2D.Double bounds) {
         return new LinkedList<>(quadTree.findInside(bounds));
@@ -139,7 +147,7 @@ public class QuadTreeDrawing extends AbstractDrawing {
             case 1:
                 Figure f = c.iterator().next();
                 return (f.contains(p)) ? f : null;
-            default: 
+            default:
                 for (Figure f2 : getFiguresFrontToBack()) {
                     if (c.contains(f2) && f2.contains(p)) {
                         return f2;
@@ -155,10 +163,10 @@ public class QuadTreeDrawing extends AbstractDrawing {
         switch (c.size()) {
             case 0:
                 return null;
-            case 1: 
+            case 1:
                 Figure f = c.iterator().next();
                 return (f == ignore || !f.contains(p)) ? null : f;
-            default: 
+            default:
                 for (Figure f2 : getFiguresFrontToBack()) {
                     if (f2 != ignore && f2.contains(p)) {
                         return f2;
@@ -177,7 +185,7 @@ public class QuadTreeDrawing extends AbstractDrawing {
             case 1:
                 Figure f = c.iterator().next();
                 return (!ignore.contains(f) || !f.contains(p)) ? null : f;
-            default: 
+            default:
                 for (Figure f2 : getFiguresFrontToBack()) {
                     if (!ignore.contains(f2) && f2.contains(p)) {
                         return f2;
@@ -224,7 +232,7 @@ public class QuadTreeDrawing extends AbstractDrawing {
         LinkedList<Figure> c = new LinkedList<>(quadTree.findIntersects(r));
         switch (c.size()) {
             case 0:
-            // fall through
+                // fall through
             case 1:
                 return c;
             default:
@@ -339,7 +347,7 @@ public class QuadTreeDrawing extends AbstractDrawing {
             if (canvasColor != null && fillOpacity > 0) {
                 canvasColor = new Color(
                         (canvasColor.getRGB() & 0xffffff)
-                        | ((int) (fillOpacity * 255) << 24), true);
+                                | ((int) (fillOpacity * 255) << 24), true);
                 // Fill the canvas
                 Rectangle2D.Double r = new Rectangle2D.Double(
                         0, 0, get(CANVAS_WIDTH), get(CANVAS_HEIGHT));
