@@ -25,8 +25,6 @@ import org.jhotdraw.xml.DOMOutput;
  */
 public class RelativeLocator extends AbstractLocator {
 
-    private final RectangleUtils rectangleUtils;
-
     private static final long serialVersionUID = 1L;
     /**
      * Relative x-coordinate on the bounds of the figure.
@@ -72,7 +70,6 @@ public class RelativeLocator extends AbstractLocator {
         this.relativeX = relativeX;
         this.relativeY = relativeY;
         this.isTransform = isTransform;
-        rectangleUtils = new RectangleUtils();
     }
 
     @Override
@@ -95,7 +92,13 @@ public class RelativeLocator extends AbstractLocator {
                 owner.get(TRANSFORM).transform(location, location);
             }
         } else {
-            rectangleUtils.setBounds(owner, bounds);
+            if (owner.get(TRANSFORM) != null) {
+                Rectangle2D r = owner.get(TRANSFORM).createTransformedShape(bounds).getBounds2D();
+                bounds.x = r.getX();
+                bounds.y = r.getY();
+                bounds.width = r.getWidth();
+                bounds.height = r.getHeight();
+            }
             location = new Point2D.Double(
                     bounds.x + bounds.width * relativeX,
                     bounds.y + bounds.height * relativeY

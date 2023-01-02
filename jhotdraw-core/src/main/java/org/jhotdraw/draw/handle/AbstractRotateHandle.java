@@ -33,14 +33,12 @@ public abstract class AbstractRotateHandle extends AbstractHandle {
     private Point2D.Double center;
     private double startTheta;
     private double startLength;
-    private RectangleUtils rectangleUtils;
 
     /**
      * Creates a new instance.
      */
     public AbstractRotateHandle(Figure owner) {
         super(owner);
-        rectangleUtils = new RectangleUtils();
     }
 
     @Override
@@ -90,7 +88,14 @@ public abstract class AbstractRotateHandle extends AbstractHandle {
     protected Rectangle2D.Double getTransformedBounds() {
         Figure owner = getOwner();
         Rectangle2D.Double bounds = owner.getBounds();
-        rectangleUtils.setBounds(owner, bounds);
+        if (owner.get(TRANSFORM) != null) {
+            Rectangle2D r = owner.get(TRANSFORM).
+                    createTransformedShape(bounds).getBounds2D();
+            bounds.x = r.getX();
+            bounds.y = r.getY();
+            bounds.width = r.getWidth();
+            bounds.height = r.getHeight();
+        }
         return bounds;
     }
 
