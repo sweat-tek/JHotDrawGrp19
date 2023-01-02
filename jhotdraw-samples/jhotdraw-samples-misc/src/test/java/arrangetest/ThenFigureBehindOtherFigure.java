@@ -20,5 +20,6 @@ public class ThenFigureBehindOtherFigure extends Stage<ThenFigureBehindOtherFigu
     public ThenFigureBehindOtherFigure figurebehindotherfigure() {
 
 
+        return null;
     }
 }

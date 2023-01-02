@@ -24,5 +24,6 @@ public class WhenUserPressArrangeToBack extends Stage<WhenUserPressArrangeToBack
 
     @Test
     public WhenUserPressArrangeToBack arrangetoback() {
+        return null;
     }
 }
