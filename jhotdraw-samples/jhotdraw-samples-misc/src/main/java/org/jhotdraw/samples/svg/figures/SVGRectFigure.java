@@ -228,17 +228,11 @@ public class SVGRectFigure extends SVGAttributedFigure implements SVGFigure {
 
     @Override
     public void setBounds(Point2D.Double anchor, Point2D.Double lead) {
-        invalidateTransformedShape();
         roundrect.x = Math.min(anchor.x, lead.x);
         roundrect.y = Math.min(anchor.y, lead.y);
         roundrect.width = Math.max(0.1, Math.abs(lead.x - anchor.x));
         roundrect.height = Math.max(0.1, Math.abs(lead.y - anchor.y));
         invalidate();
-    }
-
-    private void invalidateTransformedShape() {
-        cachedTransformedShape = null;
-        cachedHitShape = null;
     }
 
     private Shape getTransformedShape() {
@@ -268,53 +262,14 @@ public class SVGRectFigure extends SVGAttributedFigure implements SVGFigure {
         return cachedHitShape;
     }
 
-    /**
-     * Transforms the figure.
-     *
-     * @param tx The transformation.
-     */
-    @Override
-    public void transform(AffineTransform tx) {
-        invalidateTransformedShape();
-        if (get(TRANSFORM) != null
-                || //              (tx.getType() & (AffineTransform.TYPE_TRANSLATION | AffineTransform.TYPE_MASK_SCALE)) != tx.getType()) {
-                (tx.getType() & (AffineTransform.TYPE_TRANSLATION)) != tx.getType()) {
-            if (get(TRANSFORM) == null) {
-                set(TRANSFORM, (AffineTransform) tx.clone());
-            } else {
-                AffineTransform t = TRANSFORM.getClone(this);
-                t.preConcatenate(tx);
-                set(TRANSFORM, t);
-            }
-        } else {
-            Point2D.Double anchor = getStartPoint();
-            Point2D.Double lead = getEndPoint();
-            setBounds(
-                    (Point2D.Double) tx.transform(anchor, anchor),
-                    (Point2D.Double) tx.transform(lead, lead));
-            if (get(FILL_GRADIENT) != null
-                    && !get(FILL_GRADIENT).isRelativeToFigureBounds()) {
-                Gradient g = FILL_GRADIENT.getClone(this);
-                g.transform(tx);
-                set(FILL_GRADIENT, g);
-            }
-            if (get(STROKE_GRADIENT) != null
-                    && !get(STROKE_GRADIENT).isRelativeToFigureBounds()) {
-                Gradient g = STROKE_GRADIENT.getClone(this);
-                g.transform(tx);
-                set(STROKE_GRADIENT, g);
-            }
-        }
-    }
-
     @Override
     public void restoreTransformTo(Object geometry) {
-        invalidateTransformedShape();
         Object[] restoreData = (Object[]) geometry;
         roundrect = (RoundRectangle2D.Double) ((RoundRectangle2D.Double) restoreData[0]).clone();
         TRANSFORM.setClone(this, (AffineTransform) restoreData[1]);
         FILL_GRADIENT.setClone(this, (Gradient) restoreData[2]);
         STROKE_GRADIENT.setClone(this, (Gradient) restoreData[3]);
+        invalidate();
     }
 
     @Override
@@ -367,6 +322,7 @@ public class SVGRectFigure extends SVGAttributedFigure implements SVGFigure {
     @Override
     public void invalidate() {
         super.invalidate();
-        invalidateTransformedShape();
+        cachedTransformedShape = null;
+        cachedHitShape = null;
     }
 }
