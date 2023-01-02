@@ -9,6 +9,7 @@ import org.jhotdraw.draw.figure.Figure;
 import org.junit.Test;
 
 import java.util.Collection;
+import java.util.Iterator;
 
 public class WhenUserPressArrangeToBack extends Stage<WhenUserPressArrangeToBack> {
 
@@ -23,7 +24,15 @@ public class WhenUserPressArrangeToBack extends Stage<WhenUserPressArrangeToBack
 
 
     @Test
-    public WhenUserPressArrangeToBack arrangetoback() {
-        return null;
+    public WhenUserPressArrangeToBack arrangetoback(DrawingView view) {
+        if (view == null) {
+            throw new IllegalArgumentException("view cannot be null");
+        }
+        // get the selected figures from the drawing view
+        Collection<Figure> figures = view.getSelectedFigures();
+
+        // send the figures to back
+        SendToBackAction.sendToBack(view, figures);
+        return self();
     }
 }

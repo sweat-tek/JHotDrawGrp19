@@ -8,7 +8,7 @@ public class SendToBackBddTest extends ScenarioTest<GivenUserHaveTwoFigures, Whe
     @Test
     public void sendback() {
         given().userhavetwofigures();
-        when().arrangetoback();
+        when().arrangetoback(given().getView());
         then().figurebehindotherfigure();
     }
     }
