@@ -131,38 +131,6 @@ public class DefaultDrawing
     }
 
     @Override
-    public Figure findFigureBehind(Point2D.Double p, Figure figure) {
-        boolean isBehind = false;
-        for (Figure f : getFiguresFrontToBack()) {
-            if (isBehind) {
-                if (f.isVisible() && f.contains(p)) {
-                    return f;
-                }
-            } else {
-                isBehind = figure == f;
-            }
-        }
-        return null;
-    }
-
-    @Override
-    public Figure findFigureBehind(Point2D.Double p, Collection<? extends Figure> children) {
-        int inFrontOf = children.size();
-        for (Figure f : getFiguresFrontToBack()) {
-            if (inFrontOf == 0) {
-                if (f.isVisible() && f.contains(p)) {
-                    return f;
-                }
-            } else {
-                if (children.contains(f)) {
-                    inFrontOf--;
-                }
-            }
-        }
-        return null;
-    }
-
-    @Override
     public Figure findFigureExcept(Point2D.Double p, Collection<? extends Figure> ignore) {
         for (Figure f : getFiguresFrontToBack()) {
             if (!ignore.contains(f) && f.isVisible() && f.contains(p)) {
