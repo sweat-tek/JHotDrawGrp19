@@ -1,7 +1,7 @@
-import com.tngtech.jgiven.impl.Scenario;
+import com.tngtech.jgiven.junit.ScenarioTest;
 import org.junit.Test;
 
-public class SelectionBehaviorTest extends Scenario<GivenFigureToSelect, WhenFigureSelected, ThenFigureSelected> {
+public class SelectionBehaviorTest extends ScenarioTest<GivenFigureToSelect, WhenFigureSelected, ThenFigureSelected> {
 
     @Test
     public void select_figure(){
